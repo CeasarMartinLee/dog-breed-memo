@@ -3,8 +3,9 @@ export default (state = {}, action = {}) => {
     playerName: 'Albert',
     currentPerformance: {
       numOfAnsweredQuestions: 0,
-      numOfCorrect: 0
+      numOfCorrect: 0,
+      currentStreak: 0
     },
-    difficultyLevel: 0,
+    difficultyLevel: 0
   }
 }

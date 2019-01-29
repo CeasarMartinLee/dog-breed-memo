@@ -8,7 +8,7 @@ export default (state = [], action = {}) => {
       return {
         ...state,
         [action.payload.breedName]: {
-          ...state.breeds[action.payload.breedName],
+          ...state[action.payload.breedName],
           images: action.payload.imagesArray
         }
       }

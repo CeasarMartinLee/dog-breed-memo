@@ -1,3 +1,15 @@
+
+-----
+
+Game starts -> add (first) three breeds into activeBreeds[] -> start actual game (question can be asked) {
+questionGenerator 
+
+}
+
+----
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
