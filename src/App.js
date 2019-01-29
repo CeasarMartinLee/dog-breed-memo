@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+
+import GameScreenContainer from './components/GameScreenContainer'
+
 import { Provider } from 'react-redux'
 import store from './store/store'
+
 
 class App extends Component {
   render() {
@@ -22,6 +26,13 @@ class App extends Component {
             >
               Learn React
           </a>
+
+          <main>
+          <GameScreenContainer/>
+          </main>
+        </header>
+      </div>
+
           </header>
         </div>
       </Provider>
