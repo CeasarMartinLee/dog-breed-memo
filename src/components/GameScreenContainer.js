@@ -106,14 +106,13 @@ class GameScreenContainer extends React.Component {
 
         console.log(questions.answers)
         let difficultyLevel = [3,6,9,12,15,18,21,24,27,30]
-        let randomIndex = Math.floor(Math.random()*(breeds.length-3))
         questions.questionType = 'textAnswers'
-        const breedsArray = Object.values(breeds).map(breed =>{
-        })
+        const breedsArray = Object.values(breeds)
+        let randomIndex = Math.floor(Math.random()*(breedsArray.length-3))
         console.log (breedsArray)
         if (questions.questionType === 'textAnswers'){
             questions.questionText = ""
-            const possibleAnswers = breeds.slice(randomIndex,randomIndex + difficultyLevel[0])
+            const possibleAnswers = breedsArray.slice(randomIndex,randomIndex + difficultyLevel[0])
             console.log(possibleAnswers)
             console.log(Object.keys(possibleAnswers[0]))
             console.log(questions.answers[0].answer)
@@ -127,17 +126,10 @@ class GameScreenContainer extends React.Component {
             console.log(questions.answers[j].answer)
             console.log(typeof(questions.answers[j].answer))
 
-            console.log(breeds[0]["affenpinscher"].images)
+            console.log(breeds["affenpinscher"].images)
             console.log(breeds[questions.answers[j].answer])
             console.log(questions)
-            questions.questionImgUrl = breeds.map(breed => {
-                console.log(breeds)
-                console.log(breed)
-                console.log(breed["affenpinscher"])
-                // return breed[questions.answers[j].answer].images
-                return breeds[questions.answers[j].answer].images
-
-            })
+            questions.questionImgUrl = 
             
             
         }
