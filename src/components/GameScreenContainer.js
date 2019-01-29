@@ -118,7 +118,7 @@ class GameScreenContainer extends React.Component {
             console.log(questions.answers[0].answer)
             let i = 0
             for (i===0; i<questions.answers.length; i++){
-                questions.answers[i].answer = Object.keys(possibleAnswers[i])[0]
+                questions.answers[i].answer = possibleAnswers[i].breedName
             }
             let j = Math.floor(Math.random()*(questions.answers.length-1))
             console.log(j)
@@ -129,7 +129,7 @@ class GameScreenContainer extends React.Component {
             console.log(breeds["affenpinscher"].images)
             console.log(breeds[questions.answers[j].answer])
             console.log(questions)
-            questions.questionImgUrl = 
+            questions.questionImgUrl = breeds[questions.answers[j].answer].images
             
             
         }
