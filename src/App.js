@@ -12,9 +12,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <GameScreenContainer/>
-        <GameScreen>
 
-        </GameScreen>
       </Provider>
     );
   }

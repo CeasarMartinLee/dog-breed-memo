@@ -1,5 +1,4 @@
 import request from 'superagent';
-import { createSecureContext } from 'tls';
 
 export const ADD_BREED = 'ADD_BREED'
 export const IMG_DISPLAYED = 'IMG_DISPLAYED'
