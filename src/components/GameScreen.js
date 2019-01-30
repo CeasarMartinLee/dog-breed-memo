@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GameScreen.css'
 
+
 const GameScreen = props => {
+
+
+console.log(props)
   return (
     <div className='gameScreen'>
       <div className='game-area'>
@@ -18,6 +22,7 @@ const GameScreen = props => {
         </div>
       </div>
     </div>
+    
   );
 };
 
