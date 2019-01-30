@@ -4,6 +4,7 @@ export const ADD_BREED = 'ADD_BREED'
 export const IMG_DISPLAYED = 'IMG_DISPLAYED'
 export const GET_BREEDS = 'GET_BREEDS'
 export const GET_IMAGES = 'GET_IMAGES'
+export const CUT_BREED = 'CUT_BREED'
 
 export function getBreedsFromAPI() {
   return dispatch => {
@@ -24,6 +25,14 @@ export function getBreedsFromAPI() {
           payload: response
         })
       })
+  }
+}
+
+
+export function cutBreedIntoActive(breedName) {
+  return {
+    type: CUT_BREED,
+    payload: breedName
   }
 }
 

@@ -5,8 +5,6 @@ import './GameScreen.css'
 
 const GameScreen = props => {
 
-
-console.log(props)
   return (
     <div className='gameScreen'>
       <div className='game-area'>
