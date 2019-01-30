@@ -36,19 +36,6 @@ export function cutBreedIntoActive(breedName) {
   }
 }
 
-export function addBreed(breedName, imageUrls) {
-  return {
-    type: ADD_BREED,
-    payload: {
-      [breedName]: {
-        breedName: breedName,
-        images: [...imageUrls],
-        hasAlreadyAppeared: false
-      }
-    }
-  }
-}
-
 export function getImages(payload) {
   return {
     type: GET_IMAGES,
@@ -67,15 +54,5 @@ export function getImagesFromAPI(breedName) {
         }
         dispatch(getImages(actionObject))
       })
-  }
-}
-
-export function imageHasBeenDisplayed(breedName, imageUrl) {
-  return {
-    type: IMG_DISPLAYED,
-    payload: {
-      breedToUpdate: breedName,
-      imageToRemove: imageUrl
-    }
   }
 }

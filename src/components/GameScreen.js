@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './GameScreen.css'
+import GameScreenContainer from './GameScreenContainer'
 
 
 const GameScreen = props => {
@@ -18,6 +19,7 @@ const GameScreen = props => {
           <div className='option'>Humaracha</div>
           <div className='option'>Bullodogo</div>
         </div>
+        <GameScreenContainer/>
       </div>
     </div>
     

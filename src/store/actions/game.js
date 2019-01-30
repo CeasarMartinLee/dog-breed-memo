@@ -15,3 +15,5 @@ export function questionAnswered(correct) {
         payload: correct
     }
 }
+
+// Create action for RESET GAME (sets everything to zero)
