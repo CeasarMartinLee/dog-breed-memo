@@ -1,24 +1,34 @@
+#root {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
 .gameScreen {
-  width: 100vw;
-  height: 100vh;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /*margin: 0;*/
   background-image: linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975);
+  font-family: 'Dosis';
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .game-area {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+  position: relative;
+  /*transform: translate(-50%, -50%);*/
+  /*top: 0;*/
+  /*right: 0;*/
+  /*bottom: 0;*/
+  /*left: 0;*/
+  /*margin: 0 auto;*/
   width: 800px;
+  max-width: 100%;
   height: 500px;
-  margin: auto;
-  -moz-border-radius: 12px;
-  -webkit-border-radius: 12px;
-  /*border: 1px solid #d3d3d3;*/
-  border-radius: 12px;
-  background-image: linear-gradient(to right top, #f9f9f9, #f6f5f6, #f4f2f3, #f3eeef, #f1eaea);
-  box-shadow: 2px 2px 5px 0px #3b3b3b;
+  max-height: 100%;
 }
 
 .player-info {
@@ -38,21 +48,21 @@
 }
 
 .img-container-box {
-  position: absolute;
-  right: 0;
-  left: 0;
+  position: relative;
   width: 500px;
   height: 400px;
-  margin: -140px auto auto auto;
-  -moz-transform: rotate(5deg);
-  -ms-transform: rotate(5deg);
-  -o-transform: rotate(5deg);
-  -webkit-transform: rotate(5deg);
-  transform: rotate(5deg);
+  max-width: 500px;
+  max-height: 400px;
+  min-width: 50px;
+  min-height: 40px;
+  /*margin: 0 auto;*/
+  left: 50%;
+  bottom: 15%;
+  transform: rotate(5deg) translateX(-50%);
 }
 
 .question-img {
-  position: absolute;
+  position: relative;
   top: 0;
   right: 0;
   bottom: 0;
@@ -66,13 +76,14 @@
 
 .question-text {
   font-size: 36px;
-  font-weight: 300;
+  font-weight: 500;
   font-style: italic;
   position: absolute;
-  top: 260px;
+  top: 270px;
   width: 100%;
   margin: auto;
   text-align: center;
+  color: white;
 }
 
 .answers-container {
@@ -88,26 +99,40 @@
 
 .option {
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 500;
   font-style: italic;
-  line-height: 50px;
+  line-height: 60px;
   flex-basis: auto;
   width: 300px;
-  height: 50px;
-  transition: all 100ms ease-in-out;
+  height: 60px;
+  /*transition: all 100ms ease-in-out;*/
   text-align: center;
-  color: #232323;
+  color: white;
   border-radius: 25px;
-  background-color: #c1c1c1;
-  box-shadow: 10px 10px 14px 1px rgba(00, 00, 00, 0.05);
-  /*border: 2px solid rgba(0, 0, 0, 0);*/
+  /*background-color: #c1c1c1;*/
+  box-shadow: 6px 6px 14px 1px rgba(00, 00, 00, 0.2);
+  /*border: 0px solid rgba(0, 0, 0, 0);*/
+  margin-top: 35px;
 }
 
 .option:hover {
   cursor: pointer;
-  background-color: #5EFF9B;
-  color: #5f5f5f;
-  transform: scale(1.05, 1.05);
-  box-shadow: 10px 10px 14px 1px rgba(00, 00, 00, 0.2);
+  /*background-color: #5EFF9B;*/
+  /*color: #5f5f5f;*/
+  /*transform: scale(1.05, 1.05);*/
+  /*box-shadow: 10px 10px 14px 1px rgba(00, 00, 00, 0.2);*/
   /*border-color: #5FFF9B;*/
+}
+
+
+.main-menu-l1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  font-size: 96px;
+  color: #ffffff;
+}
+
+.main-menu-l1 {
+  cursor: default;
+  user-select: none;
 }
