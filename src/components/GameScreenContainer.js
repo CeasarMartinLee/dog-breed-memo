@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI } from '../store/actions/breeds'
-import GameScreen from './GameScreen'
+import AppRootScreen from './AppRootScreen'
 // const breeds = {
 
 //   "affenpinscher": {
@@ -172,10 +172,10 @@ class GameScreenContainer extends React.Component {
             // <button onClick={generateQuestion}>Press me</button>
 
             // <GameScreenDetails props={this.props}>         
-            <GameScreen props={this.props}>
+            <AppRootScreen props={this.props}>
 
 
-            </GameScreen>
+            </AppRootScreen>
 
         )
 

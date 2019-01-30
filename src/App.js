@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import GameScreen from './components/GameScreen'
+import AppRootScreen from './components/AppRootScreen'
 
 import GameScreenContainer from './components/GameScreenContainer'
 
@@ -13,9 +13,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         {/*<GameScreenContainer/>*/}
-        <GameScreen pose='normal'>
+        <AppRootScreen />
 
-        </GameScreen>
       </Provider>
     );
   }
