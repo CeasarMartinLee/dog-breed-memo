@@ -3,17 +3,24 @@ import { GET_BREEDS, GET_IMAGES } from '../actions/breeds';
 export default (state = [], action = {}) => {
   switch (action.type) {
     case GET_BREEDS:
-      return action.payload;
-    case GET_IMAGES:
+      //this added
       return {
         ...state,
-        [action.payload.breedName]: {
-          ...state[action.payload.breedName],
-          images: action.payload.imagesArray
+        breedsAll: action.payload
+      };
+    case GET_IMAGES:
+    // this added
+      return {
+        ...state,
+        breedsAll: {
+          ...state.breedsAll,
+          [action.payload.breedName]: {
+            ...state.breedsAll[action.payload.breedName],
+            images: action.payload.imagesArray
+          }
         }
       }
     default:
       return state
   }
 }
-
