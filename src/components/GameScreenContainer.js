@@ -21,23 +21,68 @@ const questions = {
     breedShownFirstTime: true
 }
 
+const game = {
+    playerName: '',
+    currentPerformance: {
+        numOfAnsweredQuestions: 0,
+        numOfCorrect: 0,
+        currentStreak: 0
+    },
+    difficultyLevel: 0
+}
+
+const updateActiveBreeds = (props) => {
+
+}
+
 
 const handleAnswer = (isCorrect) => {
 
 }
 
 
+const generateQuestion = (props) => {
+
 class GameScreenContainer extends React.Component {
 
     generateQuestion = (props, currentStreak) => {
 
+    const breedsArray = Object.keys(props.breeds.breeds)
+
+    let randomIndex = Math.floor(Math.random() * (breedsArray.length - 3))
+    let activeBreeds = breedsArray.slice(randomIndex, randomIndex + 3)
         const breedsArray = Object.values(props.breeds.breeds)
         let randomIndex = Math.floor(Math.random() * (breedsArray.length - 3))
         let activeBreeds = breedsArray.slice(randomIndex, randomIndex + 3)
 
+    questions.questionType = 'textAnswers'
         // let difficultyLevel = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
 
         questions.questionType = 'textAnswers'
+
+
+    if (questions.questionType === 'textAnswers' && props.breeds.breeds.length !== 0) {
+        questions.answers[0].isCorrect = false
+        questions.answers[1].isCorrect = false
+        questions.answers[2].isCorrect = false
+        let j = Math.floor(Math.random() * (questions.answers.length))
+        questions.answers[j].isCorrect = true
+        questions.questionText = ""
+        let shuffledActiveBreeds = activeBreeds
+            .map((a) => ({ sort: Math.random(), value: a }))
+            .sort((a, b) => a.sort - b.sort)
+            .map((a) => a.value)
+        questions.answers[0].answer = shuffledActiveBreeds[0]
+        questions.answers[1].answer = shuffledActiveBreeds[1]
+        questions.answers[2].answer = shuffledActiveBreeds[2]
+        // let correctAnswer = questions.answers[j].answer
+        const imageArray = props.breeds.breeds[questions.answers[j].answer].images
+        // if (imageArray.length === 0) {
+        //     props.getImagesFromAPI(correctAnswer)
+        // }
+        const selectedImage = imageArray[Math.floor(Math.random() * imageArray.length)]
+        questions.questionImgUrl = selectedImage
+        document.getElementById('image').src = questions.questionImgUrl
 
         if (questions.questionType === 'textAnswers') {
             questions.answers[0].isCorrect = false
@@ -86,15 +131,24 @@ class GameScreenContainer extends React.Component {
     componentDidUpdate() {
 
 
-    }
 
     render() {
-        /* this.generateQuestion(this.props) */
+        if (this.props.breeds.breeds.length !== 0) {
+            generateQuestion(this.props)
+
+        }
+
+
+
+
+
 
         return (
             // <button onClick={generateQuestion}>Press me</button>
 
-            // <GameScreenDetails props={this.props}>   
+            // <GameScreenDetails props={this.props}>         
+            <GameScreen props={this.props} questions={this.questions}>
+            // <GameScreenDetails props={this.props}>
             <div>
                 <GameScreen props={this.props}>
 
