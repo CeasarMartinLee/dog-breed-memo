@@ -2,80 +2,6 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI } from '../store/actions/breeds'
 import GameScreen from './GameScreen'
-// const breeds = {
-
-//   "affenpinscher": {
-//     breedName: "affenpinscher",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-
-//   ,
-
-//   "african": {
-//     breedName: "african",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-
-//   },
-
-//   "airedale": {
-//     breedName: "airedale",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "akita": {
-//     breedName: "akita",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "beagle": {
-//     breedName: "beagle",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "bluetick": {
-//     breedName: "bluetick",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "boxer": {
-//     breedName: "boxer",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "brabancon": {
-//     breedName: "brabancon",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "briard": {
-//     breedName: "briard",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-//   ,
-
-//   "bulldog": {
-//     breedName: "bulldog",
-//     images: ["URL1", "URL2", "URL3"],
-//     hasAlreadyAppeared: false
-//   }
-
-// }
-
 
 const questions = {
     questionType: 'textAnswers || imgAnswers',
@@ -94,10 +20,17 @@ const questions = {
     breedShownFirstTime: true
 }
 
-
+const game = {
+    playerName: '',
+    currentPerformance: {
+        numOfAnsweredQuestions: 0,
+        numOfCorrect: 0,
+        currentStreak: 0
+    },
+    difficultyLevel: 0
+}
 
 const updateActiveBreeds = (props) => {
-
 
 }
 
@@ -105,19 +38,19 @@ const handleAnswer = (isCorrect) => {
 
 }
 
-const generateQuestion = (props, currentStreak) => {
+
+const generateQuestion = (props) => {
 
 
-    const breedsArray = Object.values(props.breeds.breeds)
+    const breedsArray = Object.keys(props.breeds.breeds)
+
     let randomIndex = Math.floor(Math.random() * (breedsArray.length - 3))
     let activeBreeds = breedsArray.slice(randomIndex, randomIndex + 3)
-
-    // let difficultyLevel = [3, 6, 9, 12, 15, 18, 21, 24, 27, 30]
 
     questions.questionType = 'textAnswers'
 
 
-    if (questions.questionType === 'textAnswers') {
+    if (questions.questionType === 'textAnswers' && props.breeds.breeds.length !== 0) {
         questions.answers[0].isCorrect = false
         questions.answers[1].isCorrect = false
         questions.answers[2].isCorrect = false
@@ -131,11 +64,15 @@ const generateQuestion = (props, currentStreak) => {
         questions.answers[0].answer = shuffledActiveBreeds[0]
         questions.answers[1].answer = shuffledActiveBreeds[1]
         questions.answers[2].answer = shuffledActiveBreeds[2]
+        // let correctAnswer = questions.answers[j].answer
+        const imageArray = props.breeds.breeds[questions.answers[j].answer].images
+        // if (imageArray.length === 0) {
+        //     props.getImagesFromAPI(correctAnswer)
+        // }
+        const selectedImage = imageArray[Math.floor(Math.random() * imageArray.length)]
+        questions.questionImgUrl = selectedImage
+        document.getElementById('image').src = questions.questionImgUrl
 
-
-
-
-        // questions.questionImgUrl = props.breeds.breeds[questions.answers[j].answer].images
 
 
     }
@@ -150,19 +87,16 @@ class GameScreenContainer extends React.Component {
         this.props.getBreedsFromAPI()
         console.log(this.props)
 
-    }
-
-    componentDidUpdate() {
-        console.log(this.props)
 
     }
+
 
     render() {
-        generateQuestion(this.props)
+        if (this.props.breeds.breeds.length !== 0) {
+            generateQuestion(this.props)
 
-        console.log(this.state, "this state")
-        console.log(this.props, "this props")
-        console.log(this.props.breeds.breeds, "this props breeds")
+        }
+
 
 
 
@@ -172,7 +106,7 @@ class GameScreenContainer extends React.Component {
             // <button onClick={generateQuestion}>Press me</button>
 
             // <GameScreenDetails props={this.props}>         
-            <GameScreen props={this.props}>
+            <GameScreen props={this.props} questions={this.questions}>
 
 
             </GameScreen>
