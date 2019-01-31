@@ -29,6 +29,13 @@ const Container = posed.div({
 
 class AppRootScreen extends Component {
 
+  state = {
+    //  activeScreen changed to game screen for testing
+    //  bug-investigate nextQuestion
+
+    activeScreen: 'game',
+    backgroundState: 'normal'
+  }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
     this.props.updateUIState({
@@ -76,7 +83,6 @@ class AppRootScreen extends Component {
   }
 
   render() {
-    console.log('AppRootScreen did rerender with ', this.props)
     return (
       <AppBackground colorState={this.props.uiState.backgroundState}>
 
