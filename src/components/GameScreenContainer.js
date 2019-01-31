@@ -76,7 +76,8 @@ class GameScreenContainer extends React.Component {
       .slice(0, 3)
       .map((breedName) => activeBreeds[breedName])
 
-    const type = 'type1' // Math.random() < 0.25 ? 'type2' :
+    const type = Math.random() < 0.25 ? 'type2' : 'type1'
+
     let answerIndex = Math.floor(Math.random() * 3)
 
     this.setState({
