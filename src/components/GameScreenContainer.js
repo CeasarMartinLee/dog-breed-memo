@@ -11,19 +11,6 @@ const pickRandomElement = (elements) => {
 
 class GameScreenContainer extends React.Component {
 
-  /* state = {
-    game: {
-      playerName: '',
-      currentPerformance: {
-        numOfAnsweredQuestions: 0,
-        numOfCorrect: 0,
-        currentStreak: 0,
-        successRate: ''
-      },
-      difficultyLevel: 0
-    }
-  } */
-
   updateActiveBreeds = () => {
 
     const breedsArray = Object.keys(this.props.breeds['all']);
