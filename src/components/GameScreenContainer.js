@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI, cutBreedIntoActive } from '../store/actions/breeds'
+import { initGameStats, updateStats } from '../store/actions/game'
 import AppRootScreen from './AppRootScreen'
 
 const pickRandomElement = (elements) => {
@@ -9,7 +10,7 @@ const pickRandomElement = (elements) => {
 
 class GameScreenContainer extends React.Component {
 
-  state = {
+  /* state = {
     game: {
       playerName: '',
       currentPerformance: {
@@ -20,7 +21,7 @@ class GameScreenContainer extends React.Component {
       },
       difficultyLevel: 0
     }
-  }
+  } */
 
   updateActiveBreeds = () => {
 
@@ -46,12 +47,12 @@ class GameScreenContainer extends React.Component {
   }
 
   updateGameScreenContainerStats = (correct) => {
-
-    if ((this.state.game.currentPerformance.currentStreak % 10 === 0) && (this.state.currentPerformance.currentStreak !== 0)) {
+// this action replaces setState(), needs whatever correct is and passes as a action.payload
+    this.props.updateStats(correct);
+    if ((this.props.game.currentPerformance.currentStreak % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
-
-    this.setState(
+    /* this.setState(
       {
         game: {
           ...this.state.game,
@@ -63,6 +64,7 @@ class GameScreenContainer extends React.Component {
           }
         }
       })
+  } */
   }
 
   generateQuestion = () => {
@@ -105,6 +107,9 @@ class GameScreenContainer extends React.Component {
 
   componentDidMount() {
     this.props.getBreedsFromAPI()
+    // need to activate game stats --> initiats game stats in redux
+    this.props.initGameStats()
+
     setTimeout(() => this.updateActiveBreeds(), 2000)
     setTimeout(() => this.generateQuestion(), 5000)
   }
@@ -118,9 +123,11 @@ class GameScreenContainer extends React.Component {
   }
 }
 
+
 const mapStateToProps = (state) => {
   return {
-    breeds: state.breeds
+    breeds: state.breeds,
+    game: state.game
   }
 }
 
@@ -128,5 +135,7 @@ export default connect(mapStateToProps, {
   getImages,
   getBreedsFromAPI,
   getImagesFromAPI,
-  cutBreedIntoActive
+  cutBreedIntoActive,
+  initGameStats,
+  updateStats
 })(GameScreenContainer)
