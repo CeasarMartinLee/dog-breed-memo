@@ -1,60 +1,73 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI, cutBreedIntoActive } from '../store/actions/breeds'
-
-
-
-// const game = {
-//   playerName: '', // needs setter for the player to set it's name
-//   currentPerformance: { // needs ONE setter -> input questionAnswered(correctly) ->
-//     numOfAnsweredQuestions: 0, // always +1
-//     numOfCorrect: 0, // =1 if correct
-//     currentStreak: 0 // +1 if correct but = 0 if not
-//   },
-//   difficultyLevel: 0 // if streak % 10 === 0 && streak !== 0 then +1
-// }
-
-
+import AppRootScreen from './AppRootScreen'
 
 const pickRandomElement = (elements) => {
   return elements[Math.floor(Math.random() * elements.length)]
 }
 
-
-
 class GameScreenContainer extends React.Component {
-    state = {
-        game: {
-            playerName: '', // needs setter for the player to set it's name
-            currentPerformance: { // needs ONE setter -> input questionAnswered(correctly) ->
-              numOfAnsweredQuestions: 0, // always +1
-              numOfCorrect: 0, // =1 if correct
-              currentStreak: 0 // +1 if correct but = 0 if not
-            },
-            difficultyLevel: 0 // if streak % 10 === 0 && streak !== 0 then +1
-          }
-    }
 
+  state = {
+    game: {
+      playerName: '',
+      currentPerformance: {
+        numOfAnsweredQuestions: 0,
+        numOfCorrect: 0,
+        currentStreak: 0,
+        successRate: ''
+      },
+      difficultyLevel: 0
+    }
+  }
 
   updateActiveBreeds = () => {
-    // pick randowm three breeds from breeds.all
+
     const breedsArray = Object.keys(this.props.breeds['all']);
     const threeRandomNames = [];
     for (let i = 0; i < 3; i++) {
       threeRandomNames.push(breedsArray[Math.floor(Math.random() * (breedsArray.length))])
     }
-    // cut from all and paste the breeds into active
+
     threeRandomNames.forEach(breedName => {
       this.props.cutBreedIntoActive(breedName);
     });
-    // populate them with images
+
     threeRandomNames.forEach(breedName => {
       this.props.getImagesFromAPI(breedName);
     });
 
   }
 
-  generateQuestion = (activeBreeds) => {
+  nextQuestion = (previousWasCorrect) => {
+    this.updateGameScreenContainerStats(previousWasCorrect)
+    this.generateQuestion()
+  }
+
+  updateGameScreenContainerStats = (correct) => {
+
+    if ((this.state.game.currentPerformance.currentStreak % 10 === 0) && (this.state.currentPerformance.currentStreak !== 0)) {
+      this.updateActiveBreeds()
+    }
+
+    this.setState(
+      {
+        game: {
+          ...this.state.game,
+          currentPerformance: {
+            ...this.state.game.currentPerformance,
+            numOfAnsweredQuestions: this.state.game.currentPerformance.numOfCorrect + 1,
+            numOfCorrect: this.state.game.currentPerformance.numOfCorrect + correct,
+            currentStreak: correct ? this.state.game.currentPerformance.currentStreak + 1 : 0
+          }
+        }
+      })
+  }
+
+  generateQuestion = () => {
+
+    const activeBreeds = this.props.breeds.active
 
     const breeds = Object.keys(activeBreeds)
       .map((a) => ({ sort: Math.random(), value: a }))
@@ -62,66 +75,45 @@ class GameScreenContainer extends React.Component {
       .map((a) => a.value)
       .slice(0, 3)
       .map((breedName) => activeBreeds[breedName])
-  
-    const type = Math.random() < 0.25 ? 'type2' : 'type1'
+
+    const type = 'type1' // Math.random() < 0.25 ? 'type2' :
     let answerIndex = Math.floor(Math.random() * 3)
 
-    let questionCounter = this.state.game.currentPerformance.numOfAnsweredQuestions
-    this.setState({game: {currentPerformance: {numOfCorrect:  questionCounter++}}}) 
-
-    return {
-      questionType: type,
-      questionImgUrl: type === 'type1' ? pickRandomElement(breeds[answerIndex].images) : '',
-      questionText: type === 'type2' ? breeds[answerIndex].breedName : '',
-      answers: [{
-        answer: type === 'type1' ? breeds[0].breedName : pickRandomElement(breeds[0].images),
-        isCorrect: answerIndex === 0
-      }, {
-        answer: type === 'type1' ? breeds[1].breedName : pickRandomElement(breeds[1].images),
-        isCorrect: answerIndex === 1
-      }, {
-        answer: type === 'type1' ? breeds[2].breedName : pickRandomElement(breeds[2].images),
-        isCorrect: answerIndex === 2
-      }],
-      breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared
-    }
+    this.setState({
+      activeQuestion: {
+        questionType: type,
+        questionImgUrl: type === 'type1' ? pickRandomElement(breeds[answerIndex].images) : '',
+        questionText: type === 'type2' ? breeds[answerIndex].breedName : '',
+        answers: [{
+          answer: type === 'type1' ? breeds[0].breedName : pickRandomElement(breeds[0].images),
+          isCorrect: answerIndex === 0
+        }, {
+          answer: type === 'type1' ? breeds[1].breedName : pickRandomElement(breeds[1].images),
+          isCorrect: answerIndex === 1
+        }, {
+          answer: type === 'type1' ? breeds[2].breedName : pickRandomElement(breeds[2].images),
+          isCorrect: answerIndex === 2
+        }],
+        breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared
+      }
+    })
   }
 
-//if selected answer from UI is correct, perform handleAnswer to update Game State
-    handleAnswer = (isCorrect) => {
-        let correctCounter = this.state.game.currentPerformance.numOfCorrect
-            if (isCorrect === true){
-                this.setState({game: {currentPerformance: {numOfCorrect:  correctCounter++}}}) 
-            }
+  handleAnswer = (isCorrect) => {
 
-        let streakCounter = this.state.game.currentPerformance.currentStreak
-            if (isCorrect === true){
-                this.setState({game: {currentPerformance: {currentStreak:  streakCounter++}}}) 
-            } else {
-                this.setState({game: {currentPerformance: {currentStreak:  0}}}) 
-            }
-        
-        let levelCounter = this.state.game.difficultyLevel
-        if (this.state.game.currentPerformance.currentStreak % 10 === 0 && this.state.game.currentPerformance.currentStreak !== 0){
-            this.setState({game: {difficultyLevel: levelCounter++}})  
-            this.updateActiveBreeds()
-        }
-    }
+  }
 
   componentDidMount() {
     this.props.getBreedsFromAPI()
+    setTimeout(() => this.updateActiveBreeds(), 2000)
+    setTimeout(() => this.generateQuestion(), 5000)
   }
 
   render() {
-    console.log(this.state)
-    console.log(this.props)
-
+    console.log(this.state.activeQuestion)
 
     return (
-      <div props={this.props} questions={this.questions}>
-        <button onClick={() => this.updateActiveBreeds()}>check this update acrive breeds</button>
-        <button onClick={() => console.log(this.generateQuestion(this.props.breeds.active))}>give me a question</button>
-      </div>
+      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} />
     )
   }
 }

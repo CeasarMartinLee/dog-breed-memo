@@ -36,10 +36,10 @@ class StartMenuView extends Component {
   render() {
     return (
       <div>
-        <TextContainer className='main-menu-l1'><Textfit mode='single' forceSingleModeWidth={false}>
+        <TextContainer className='main-menu-l1'><Textfit mode='single' forceSingleModeWidth={false} color='#ffffff'>
           <b>Hello,</b>
         </Textfit></TextContainer>
-        <TextContainer className='main-menu-l1'><Textfit mode='single' forceSingleModeWidth={false}>
+        <TextContainer className='main-menu-l1'><Textfit mode='single' forceSingleModeWidth={false} color='#ffffff'>
           How's your dog knowledge?
         </Textfit></TextContainer>
         <TextButton className='main-menu-l2'>Start and find out</TextButton>

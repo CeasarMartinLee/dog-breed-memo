@@ -27,7 +27,7 @@ const Container = posed.div({
 class AppRootScreen extends Component {
 
   state = {
-    activeScreen: 'game',
+    activeScreen: 'start',
     backgroundState: 'normal'
   }
 
@@ -40,6 +40,7 @@ class AppRootScreen extends Component {
       infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
       activeScreen: 'info'
     })
+    this.props.answerHandler(wasPreviousAnswerCorrect)
     setTimeout(() => this.setState({
       backgroundState: 'normal',
       activeScreen: 'game'
@@ -47,6 +48,8 @@ class AppRootScreen extends Component {
   }
 
   renderActiveElement = (activeState) => {
+
+    console.log('PROPS', this.props.activeQuestion)
 
     switch (activeState) {
       case 'start':
@@ -58,7 +61,7 @@ class AppRootScreen extends Component {
       case 'game':
         return (
           <Container key='game-container' className='game-area'>
-            <GameScreenView key='game-screen' nextQuestion={this.nextQuestion} />
+            <GameScreenView key='game-screen' question={this.props.activeQuestion} answerHandler={this.nextQuestion} />
           </Container>
         )
       case 'info':

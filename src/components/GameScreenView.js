@@ -34,7 +34,7 @@ class GameScreenView extends Component {
   render() {
     return (
       <div>
-        <Question question={this.state.question} answerHandler={this.handleAnswer} />
+        <Question question={this.props.question} answerHandler={this.props.answerHandler} />
       </div>
     )
   }

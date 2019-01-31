@@ -6,13 +6,14 @@ import GameScreenContainer from './components/GameScreenContainer'
 
 import { Provider } from 'react-redux'
 import store from './store/store'
+import AppContainer from './components/AppContainer'
 
 class App extends Component {
 
   render() {
     return (
       <Provider store={store}>
-        <AppRootScreen />
+        <GameScreenContainer />
       </Provider>
     );
   }

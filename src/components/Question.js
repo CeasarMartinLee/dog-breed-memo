@@ -54,11 +54,11 @@ class Question extends Component {
           <div className='question-text'>What breed is the dog on the picture?</div>
           <div className='answers-container'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
-                          onAnswer={this.playerDidAnswer}>{this.props.question.answers[0].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}>{this.props.question.answers[0].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
-                          onAnswer={this.playerDidAnswer}>{this.props.question.answers[1].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}>{this.props.question.answers[1].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
-                          onAnswer={this.playerDidAnswer}>{this.props.question.answers[2].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}>{this.props.question.answers[2].answer}</AnswerButton>
           </div>
         </Container>
       )
