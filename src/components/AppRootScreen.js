@@ -33,8 +33,8 @@ class AppRootScreen extends Component {
     //  activeScreen changed to game screen for testing
     //  bug-investigate nextQuestion
 
-    activeScreen: 'game',
-    backgroundState: 'normal'
+    // activeScreen: 'start',
+    // backgroundState: 'start'
   }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
@@ -46,7 +46,9 @@ class AppRootScreen extends Component {
       infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
       activeScreen: 'info'
     })
+
     this.props.answerHandler(wasPreviousAnswerCorrect)
+
     setTimeout(() => this.props.updateUIState({
       backgroundState: 'game',
       activeScreen: 'game'
@@ -85,7 +87,6 @@ class AppRootScreen extends Component {
   render() {
     return (
       <AppBackground colorState={this.props.uiState.backgroundState}>
-
         <PoseGroup animateOnMount='true'>
           {
             this.renderActiveElement(this.props.uiState.activeScreen)
@@ -96,7 +97,9 @@ class AppRootScreen extends Component {
   }
 }
 
-AppRootScreen.propTypes = {};
+AppRootScreen.propTypes = {
+  answerHandler: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => {
   return {

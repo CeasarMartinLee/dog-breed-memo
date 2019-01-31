@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI, cutBreedIntoActive } from '../store/actions/breeds'
-import { initGameStats, updateStats } from '../store/actions/game'
+import { initGameStats, updateStats, setActiveQuestion } from '../store/actions/game'
 import { updateUIState } from '../store/actions/ui'
 import AppRootScreen from './AppRootScreen'
 
@@ -49,7 +49,7 @@ class GameScreenContainer extends React.Component {
 
   updateGameScreenContainerStats = (correct) => {
 // this action replaces setState(), needs whatever correct is and passes as a action.payload
-    this.props.updateStats(correct);
+    this.props.updateStats(correct); // FIX THIS
     if ((this.props.game.currentPerformance.currentStreak % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
@@ -82,8 +82,7 @@ class GameScreenContainer extends React.Component {
     const type = 'type1' // Math.random() < 0.25 ? 'type2' :
     let answerIndex = Math.floor(Math.random() * 3)
 
-    this.setState({
-      activeQuestion: {
+    this.props.setActiveQuestion({
         questionType: type,
         questionImgUrl: type === 'type1' ? pickRandomElement(breeds[answerIndex].images) : '',
         questionText: type === 'type2' ? breeds[answerIndex].breedName : '',
@@ -98,8 +97,7 @@ class GameScreenContainer extends React.Component {
           isCorrect: answerIndex === 2
         }],
         breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared
-      }
-    })
+      })
   }
 
   handleAnswer = (isCorrect) => {
@@ -116,12 +114,14 @@ class GameScreenContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.activeQuestion)
+    console.log(this.props.game.activeQuestion)
+
+
 
     return (
-    //  <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer}/>
+    //  <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer}/>
     //  bug-investigate nextQuestion- updated above line
-      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
+      <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
     )
   }
 }
@@ -141,6 +141,7 @@ export default connect(mapStateToProps, {
   cutBreedIntoActive,
   initGameStats,
   updateStats,
-  cutBreedIntoActive,
-  updateUIState
+  updateUIState,
+  setActiveQuestion
 })(GameScreenContainer)
+

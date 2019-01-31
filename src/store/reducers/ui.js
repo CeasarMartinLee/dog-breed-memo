@@ -7,12 +7,12 @@ export default (state = {}, action = {}) => {
       }
     default:
       return {
-        backgroundState: 'game',
+        backgroundState: 'start',
         wasPreviousAnswerCorrect: null,
         infoScreenBiggerText: '',
         infoScreenSmallerText: '',
         infoScreenTextColor: '#ffffff',
-        activeScreen: 'game'
+        activeScreen: 'start'
       }
   }
 }
