@@ -40,6 +40,10 @@ class AppRootScreen extends Component {
       infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
       activeScreen: 'info'
     })
+    setTimeout(() => this.setState({
+      backgroundState: 'normal',
+      activeScreen: 'game'
+    }), 3000)
   }
 
   renderActiveElement = (activeState) => {

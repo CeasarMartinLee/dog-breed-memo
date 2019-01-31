@@ -9,17 +9,17 @@ class GameScreenView extends Component {
 
   state = {
     question: {
-      questionImgUrl: 'https://images.dog.ceo/breeds/shihtzu/n02086240_5443.jpg',
+      questionImgUrl: 'https://images.dog.ceo/breeds/eskimo/n02109961_17082.jpg',
       answers: [
         {
           answer: 'Bouvier',
           isCorrect: false
         }, {
-          answer: 'Bulldog',
-          isCorrect: false
+          answer: 'Eskimo',
+          isCorrect: true
         }, {
           answer: 'Shihtzu',
-          isCorrect: true
+          isCorrect: false
         }
       ]
     }
