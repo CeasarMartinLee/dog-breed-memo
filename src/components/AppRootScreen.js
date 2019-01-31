@@ -6,6 +6,9 @@ import AppBackground from './AppBackground'
 import StartMenuView from './StartMenuView'
 import GameScreenView from './GameScreenView'
 import LoadingScreen from './LoadingScreen'
+import { connect } from 'react-redux'
+import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI } from '../store/actions/breeds'
+import { updateUIState } from '../store/actions/ui'
 
 const Container = posed.div({
   enter: {
@@ -26,13 +29,9 @@ const Container = posed.div({
 
 class AppRootScreen extends Component {
 
-  state = {
-    activeScreen: 'start',
-    backgroundState: 'normal'
-  }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
-    this.setState({
+    this.props.updateUIState({
       backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
       wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,
       infoScreenBiggerText: wasPreviousAnswerCorrect ? "Nice!" : 'Nope.',
@@ -41,8 +40,8 @@ class AppRootScreen extends Component {
       activeScreen: 'info'
     })
     this.props.answerHandler(wasPreviousAnswerCorrect)
-    setTimeout(() => this.setState({
-      backgroundState: 'normal',
+    setTimeout(() => this.props.updateUIState({
+      backgroundState: 'game',
       activeScreen: 'game'
     }), 3000)
   }
@@ -67,8 +66,8 @@ class AppRootScreen extends Component {
       case 'info':
         return (
           <Container key='menu-container-a' className='main-menu-container'>
-            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.state.infoScreenBiggerText}
-                           smallerText={this.state.infoScreenSmallerText} textColor={this.state.infoScreenTextColor} />
+            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.props.uiState.infoScreenBiggerText}
+                           smallerText={this.props.uiState.infoScreenSmallerText} textColor={this.props.uiState.infoScreenTextColor} />
           </Container>
         )
       default:
@@ -77,12 +76,13 @@ class AppRootScreen extends Component {
   }
 
   render() {
+    console.log('AppRootScreen did rerender with ', this.props)
     return (
-      <AppBackground colorState={this.state.backgroundState}>
+      <AppBackground colorState={this.props.uiState.backgroundState}>
 
         <PoseGroup animateOnMount='true'>
           {
-            this.renderActiveElement(this.state.activeScreen)
+            this.renderActiveElement(this.props.uiState.activeScreen)
           }
         </PoseGroup>
       </AppBackground>
@@ -92,4 +92,13 @@ class AppRootScreen extends Component {
 
 AppRootScreen.propTypes = {};
 
-export default AppRootScreen;
+const mapStateToProps = (state) => {
+  return {
+    breeds: state.breeds,
+    uiState: state.ui
+  }
+}
+
+export default connect(mapStateToProps, {
+  updateUIState
+})(AppRootScreen)

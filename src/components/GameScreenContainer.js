@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { getImages, getBreedsFromAPI, getImagesFromAPI, cutBreedIntoActive } from '../store/actions/breeds'
 import { initGameStats, updateStats } from '../store/actions/game'
+import { updateUIState } from '../store/actions/ui'
 import AppRootScreen from './AppRootScreen'
 
 const pickRandomElement = (elements) => {
@@ -123,11 +124,11 @@ class GameScreenContainer extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
   return {
     breeds: state.breeds,
-    game: state.game
+    game: state.game,
+    uiState: state.ui
   }
 }
 
@@ -137,5 +138,7 @@ export default connect(mapStateToProps, {
   getImagesFromAPI,
   cutBreedIntoActive,
   initGameStats,
-  updateStats
+  updateStats,
+  cutBreedIntoActive,
+  updateUIState
 })(GameScreenContainer)
