@@ -3,61 +3,66 @@ import PropTypes from 'prop-types';
 import './Styles.css'
 import posed, { PoseGroup } from 'react-pose'
 import AppBackground from './AppBackground'
-import GameScreen from './GameScreen'
-import StartMenuScreen from './StartMenuScreen'
+import StartMenuView from './StartMenuView'
+import GameScreenView from './GameScreenView'
+import LoadingScreen from './LoadingScreen'
 
-//hrtslg
-
-
-const GroupContainer = posed.div({
+const Container = posed.div({
   enter: {
-    opacity: 0,
-    scale: 0.8,
-    y: 400
+    y: 0,
+    opacity: 1,
+    delay: 300,
+    transition: {
+      y: { type: 'spring', stiffness: 1000, damping: 15 },
+      default: { duration: 300 }
+    }
   },
   exit: {
-    opacity: 1,
-    scale: 1.0,
-    y: 0,
-    transition: { scale: { type: 'spring', stiffness: 300, damping: 15, duration: 500 } }
+    y: 50,
+    opacity: 0,
+    transition: { duration: 150 }
   }
 })
 
 class AppRootScreen extends Component {
 
   state = {
-    activeScreen: 'start-menu'
+    activeScreen: 'game',
+    backgroundState: 'normal'
   }
 
-  handleAnswer = correct => {
-    if (!this.state.isAnswered) {
-      this.setState({
-        currentBackgroundState: 'green',
-        isAnswered: true,
-        showGameArea: 'questionAnswered'
-      })
-    }
-  }
-
-  updateState = () => {
+  nextQuestion = (wasPreviousAnswerCorrect) => {
     this.setState({
-      activeScreen: 'game'
+      backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
+      wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,
+      infoScreenBiggerText: wasPreviousAnswerCorrect ? "Nice!" : 'Nope.',
+      infoScreenSmallerText: wasPreviousAnswerCorrect ? "That's a good breed choice!" : 'How can you not know that?',
+      infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
+      activeScreen: 'info'
     })
-    console.log('State changed')
   }
 
-  componentDidMount = () => {
-    setTimeout(this.updateState, 3000)
-  }
-
-  renderActiveElement(activeState) {
-    console.log('Render', activeState)
+  renderActiveElement = (activeState) => {
 
     switch (activeState) {
-      case 'start-menu':
-        return <StartMenuScreen key='menu-screen' />
+      case 'start':
+        return (
+          <Container key='menu-container' className='main-menu-container'>
+            <StartMenuView key='menu-screen' />
+          </Container>
+        )
       case 'game':
-        return <GameScreen key='game-screen' />
+        return (
+          <Container key='game-container' className='game-area'>
+            <GameScreenView key='game-screen' nextQuestion={this.nextQuestion}/>
+          </Container>
+        )
+      case 'info':
+        return (
+          <Container key='menu-container-a' className='main-menu-container'>
+            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.state.infoScreenBiggerText} smallerText={this.state.infoScreenSmallerText} textColor={this.state.infoScreenTextColor} />
+          </Container>
+        )
       default:
         return
     }
@@ -65,9 +70,17 @@ class AppRootScreen extends Component {
 
   render() {
     return (
-      <AppBackground colorState='mainMenu'>
-        <PoseGroup>
-          {this.renderActiveElement(this.state.activeScreen)}
+      <AppBackground colorState={this.state.backgroundState}>
+        {/*<div className='testDiv' onClick={() => {*/}
+          {/*this.setState({*/}
+            {/*activeScreen: this.state.activeScreen === 'game' ? 'start-menu' : 'game'*/}
+          {/*})*/}
+        {/*}}>Test*/}
+        {/*</div>*/}
+        <PoseGroup animateOnMount='true'>
+          {
+            this.renderActiveElement(this.state.activeScreen)
+          }
         </PoseGroup>
       </AppBackground>
     )

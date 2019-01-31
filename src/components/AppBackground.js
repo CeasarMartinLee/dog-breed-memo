@@ -7,10 +7,10 @@ const AppBackgroundContainer = posed.div({
   normal: {
     backgroundImage: 'linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975)'
   },
-  red: {
+  answerWrong: {
     backgroundImage: 'linear-gradient(to right top, #ff00a2, #f6007c, #e70059, #d4003a, #bd081d)'
   },
-  green: {
+  answerCorrect: {
     backgroundImage: 'linear-gradient(to right top, #00ff18, #00ff30, #00ff41, #00ff4e, #00ff5a)'
   },
   mainMenu: {
@@ -19,9 +19,11 @@ const AppBackgroundContainer = posed.div({
 })
 
 class AppBackground extends Component {
+
   render() {
+    console.log('Rerender bkgnd', this.props.colorState)
     return (
-      <AppBackgroundContainer pose={this.props.colorState} className='game-screen'>
+      <AppBackgroundContainer pose={this.props.colorState} className='game-screen' {...this.props}>
         {this.props.children}
       </AppBackgroundContainer>
     )
@@ -32,4 +34,4 @@ AppBackground.propTypes = {
   colorState: PropTypes.string
 };
 
-export default AppBackground;
+export default React.forwardRef((props, innerRef) => <AppBackground ref={innerRef} {...props} />);

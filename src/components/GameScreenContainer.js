@@ -131,13 +131,6 @@ const generateQuestion = (props, currentStreak) => {
         questions.answers[0].answer = shuffledActiveBreeds[0]
         questions.answers[1].answer = shuffledActiveBreeds[1]
         questions.answers[2].answer = shuffledActiveBreeds[2]
-
-
-
-
-        // questions.questionImgUrl = props.breeds.breeds[questions.answers[j].answer].images
-
-
     }
     console.log(questions, 'questions')
 }
@@ -149,7 +142,6 @@ class GameScreenContainer extends React.Component {
     componentDidMount() {
         this.props.getBreedsFromAPI()
         console.log(this.props)
-
     }
 
     componentDidUpdate() {

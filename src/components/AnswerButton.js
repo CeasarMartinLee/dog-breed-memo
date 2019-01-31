@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import posed from 'react-pose'
 import './Styles.css'
 
-const AnswerButtonContainer = posed.div({
+const PosedAnswerButton = posed.div({
   hoverable: true,
   pressable: true,
   init: {
@@ -29,20 +29,28 @@ const AnswerButtonContainer = posed.div({
     transform: {
       duration: 500
     }
-  },
+  }
 })
 
 class AnswerButton extends Component {
+
+  handleClick = () => {
+    console.log('Click reg: Button')
+    this.props.onAnswer(this.props.isCorrect)
+  }
+
   render() {
     return (
-      <AnswerButtonContainer onClick={this.props.clickHandler}
-                  className='option'>{this.props.children}</AnswerButtonContainer>
-    );
+      <PosedAnswerButton className='option' onClick={this.handleClick}>
+        {this.props.children}
+      </PosedAnswerButton>
+    )
   }
 }
 
 AnswerButton.propTypes = {
-  clickHandler: PropTypes.func
+  onAnswer: PropTypes.func.isRequired,
+  isCorrect: PropTypes.bool.isRequired
 };
 
-export default AnswerButton;
+export default React.forwardRef((props, innerRef) => <AnswerButton ref={innerRef} {...props}/>);
