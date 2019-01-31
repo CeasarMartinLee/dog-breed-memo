@@ -43,7 +43,10 @@ class Question extends Component {
   }
 
   render() {
-    if (this.props.question) {
+    console.log(this.props)
+//feature - implement type2 question; changed const type to type2
+// if (this.props.question) { //original code
+    if (this.props.question && this.props.question.questionType === 'type1') {
       return (
         <Container pose='stateActive' className='question-container'>
           <div className='img-container-box'>
@@ -62,6 +65,39 @@ class Question extends Component {
           </div>
         </Container>
       )
+    } else if (this.props.question && this.props.question.questionType === 'type2') {
+      return (
+        <Container pose='stateActive'>
+        {/* <Container pose='stateActive' className='question-container'> */}
+          <div className='answers-container2'>
+            <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
+                          onAnswer={this.props.answerHandler}>
+                                    <div >
+                                      <img  className='question-img2'
+                                            src={this.props.question.answers[0].answer}
+                                            alt='' />
+                                    </div>                          
+            </AnswerButton>
+            <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
+                          onAnswer={this.props.answerHandler}>
+                                     <div >
+                                      <img  className='question-img2'
+                                            src={this.props.question.answers[1].answer}
+                                            alt='' />
+                                     </div>                                                             
+            </AnswerButton>
+            <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
+                          onAnswer={this.props.answerHandler}>
+                                     <div >
+                                      <img  className='question-img2'
+                                            src={this.props.question.answers[2].answer}
+                                            alt='' />
+                                     </div>                                                    
+            </AnswerButton>
+          </div>
+          <div className='question-text2'>Find <b>{this.props.question.questionText}</b> in the pictures</div>
+        </Container>
+      )    
     } else {
       return <div></div>
     }
