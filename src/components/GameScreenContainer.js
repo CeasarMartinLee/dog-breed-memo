@@ -10,19 +10,8 @@ const pickRandomElement = (elements) => {
 
 class GameScreenContainer extends React.Component {
 
-  state = {
-    game: {
-      playerName: '',
-      currentPerformance: {
-        numOfAnsweredQuestions: 0,
-        numOfCorrect: 0,
-        currentStreak: 0,
-        successRate: ''
-      },
-      difficultyLevel: 0
-    }
-  }
 
+  state = {}
   updateActiveBreeds = () => {
 
     const breedsArray = Object.keys(this.props.breeds['all']);
@@ -48,19 +37,19 @@ class GameScreenContainer extends React.Component {
 
   updateGameScreenContainerStats = (correct) => {
 
-    if ((this.state.game.currentPerformance.currentStreak % 10 === 0) && (this.state.currentPerformance.currentStreak !== 0)) {
+    if ((this.props.uiState.game.currentPerformance.currentStreak % 10 === 0) && (this.props.uiState.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
 
     this.setState(
       {
         game: {
-          ...this.state.game,
+          ...this.props.uiState.game,
           currentPerformance: {
-            ...this.state.game.currentPerformance,
-            numOfAnsweredQuestions: this.state.game.currentPerformance.numOfCorrect + 1,
-            numOfCorrect: this.state.game.currentPerformance.numOfCorrect + correct,
-            currentStreak: correct ? this.state.game.currentPerformance.currentStreak + 1 : 0
+            ...this.props.uiState.game.currentPerformance,
+            numOfAnsweredQuestions: this.props.uiState.game.currentPerformance.numOfCorrect + 1,
+            numOfCorrect: this.props.uiState.game.currentPerformance.numOfCorrect + correct,
+            currentStreak: correct ? this.props.uiState.game.currentPerformance.currentStreak + 1 : 0
           }
         }
       })
@@ -111,11 +100,13 @@ class GameScreenContainer extends React.Component {
   }
 
   render() {
-    console.log(this.state.activeQuestion)
-
-    return (
-      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} />
-    )
+    if (!('activeQuestion' in this.state)) {
+      return (
+        <div>A</div>
+      )
+    } else {
+      return (<AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} />)
+    }
   }
 }
 

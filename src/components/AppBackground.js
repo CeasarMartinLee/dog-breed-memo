@@ -4,7 +4,7 @@ import posed from 'react-pose'
 import './Styles.css'
 
 const AppBackgroundContainer = posed.div({
-  normal: {
+  game: {
     backgroundImage: 'linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975)'
   },
   answerWrong: {
