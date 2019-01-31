@@ -27,7 +27,10 @@ const Container = posed.div({
 class AppRootScreen extends Component {
 
   state = {
-    activeScreen: 'start',
+    //  activeScreen changed to game screen for testing
+    //  bug-investigate nextQuestion
+
+    activeScreen: 'game',
     backgroundState: 'normal'
   }
 
@@ -45,6 +48,8 @@ class AppRootScreen extends Component {
       backgroundState: 'normal',
       activeScreen: 'game'
     }), 3000)
+    console.log(this.props)
+    this.props.generateQuestion() //bug-investigate nextQuestion- added this line
   }
 
   renderActiveElement = (activeState) => {

@@ -113,7 +113,9 @@ class GameScreenContainer extends React.Component {
     console.log(this.state.activeQuestion)
 
     return (
-      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} />
+    //  <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer}/>
+    //  bug-investigate nextQuestion- updated above line
+      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
     )
   }
 }
