@@ -1,0 +1,168 @@
+#root {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.game-screen {
+  font-family: 'Dosis';
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975);
+}
+
+.game-area {
+  position: absolute;
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
+  max-height: 100%;
+}
+
+.player-info {
+  grid-area: player-info;
+}
+
+.player-stats {
+  grid-area: player-stats;
+}
+
+.corner-bttm-right {
+  grid-area: corner-bttm-right;
+}
+
+.corner-bttm-left {
+  grid-area: corner-bttm-left;
+}
+
+.img-container-box {
+  position: relative;
+  display: table;
+  right: 0;
+  left: 0;
+  bottom: 100px;
+  width: 500px;
+  min-width: 50px;
+  max-width: 500px;
+  height: 400px;
+  min-height: 40px;
+  max-height: 400px;
+  margin: 0 auto 0 auto;
+  transform: rotate(5deg);
+text-align: center;
+  vertical-align: middle;
+}
+
+.question-img {
+  position: relative;
+  display: inline-block;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+  max-width: 100%;
+  max-height: 400px;
+  height: auto;
+  margin: auto;
+  border: 6px solid white;
+  box-shadow: 2px 2px 5px 0px #3b3b3b;
+}
+
+.question-text {
+  font-size: 36px;
+  font-weight: 500;
+  font-style: italic;
+  position: absolute;
+  top: 270px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  color: white;
+}
+
+.answers-container {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 160px;
+}
+
+.option {
+  font-size: 24px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 60px;
+  flex-basis: auto;
+  width: 300px;
+  height: 60px;
+  margin-top: 35px;
+  text-align: center;
+  color: white;
+  border-radius: 25px;
+  box-shadow: 6px 6px 14px 1px rgba(00, 00, 00, 0.2);
+}
+
+.option:hover {
+  cursor: pointer;
+}
+
+.main-menu-l1 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 96px;
+  font-weight: 300;
+  display: table;
+  max-width: 95vw;
+  cursor: default;
+  user-select: none;
+  /*color: #ffffff;*/
+}
+
+.main-menu-l2 {
+  font-family: 'Roboto', sans-serif;
+  font-size: 42px;
+  font-weight: 600;
+  position: relative;
+  right: 0;
+  bottom: -100px;
+  /*margin: 100px auto 15vh auto;*/
+  left: 0;
+  width: fit-content;
+  margin: 0 auto;
+  user-select: none;
+  text-align: center;
+}
+
+.main-menu-l2:hover {
+  cursor: pointer;
+}
+
+.main-menu-container {
+  position: absolute;
+}
+
+.testDiv {
+  position: fixed;
+  width: 40px;
+  height: 30px;
+  background-color: red;
+  top: 10px;
+  left: 10px;
+}
+
+.loadingbar {
+  position: relative;
+  height: 400px;
+}
+
+.question-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
