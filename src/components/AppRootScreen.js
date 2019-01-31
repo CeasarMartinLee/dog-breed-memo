@@ -58,13 +58,14 @@ class AppRootScreen extends Component {
       case 'game':
         return (
           <Container key='game-container' className='game-area'>
-            <GameScreenView key='game-screen' nextQuestion={this.nextQuestion}/>
+            <GameScreenView key='game-screen' nextQuestion={this.nextQuestion} />
           </Container>
         )
       case 'info':
         return (
           <Container key='menu-container-a' className='main-menu-container'>
-            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.state.infoScreenBiggerText} smallerText={this.state.infoScreenSmallerText} textColor={this.state.infoScreenTextColor} />
+            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.state.infoScreenBiggerText}
+                           smallerText={this.state.infoScreenSmallerText} textColor={this.state.infoScreenTextColor} />
           </Container>
         )
       default:
@@ -75,12 +76,7 @@ class AppRootScreen extends Component {
   render() {
     return (
       <AppBackground colorState={this.state.backgroundState}>
-        {/*<div className='testDiv' onClick={() => {*/}
-          {/*this.setState({*/}
-            {/*activeScreen: this.state.activeScreen === 'game' ? 'start-menu' : 'game'*/}
-          {/*})*/}
-        {/*}}>Test*/}
-        {/*</div>*/}
+
         <PoseGroup animateOnMount='true'>
           {
             this.renderActiveElement(this.state.activeScreen)

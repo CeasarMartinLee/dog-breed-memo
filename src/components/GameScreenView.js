@@ -42,7 +42,7 @@ class GameScreenView extends Component {
 
 GameScreenView.propTypes = {
   question: PropTypes.object.isRequired,
-  changeBackground: PropTypes.func.isRequired
+  nextQuestion: PropTypes.func.isRequired
 };
 
 export default React.forwardRef((props, innerRef) => <GameScreenView ref={innerRef} {...props} />);
