@@ -13,7 +13,7 @@ const AppBackgroundContainer = posed.div({
   answerCorrect: {
     backgroundImage: 'linear-gradient(to right top, #00ff18, #00ff30, #00ff41, #00ff4e, #00ff5a)'
   },
-  mainMenu: {
+  startScreen: {
     backgroundImage: 'linear-gradient(to right top, #1e5ebb, #1150b6, #0b41af, #1032a7, #1a1f9e)'
   }
 })
