@@ -37,13 +37,60 @@ const Container = posed.div({
 
 class Question extends Component {
 
+  state = {
+    isShowingHint1: false,
+    isShowingHint2: false,
+    isShowingHint3: false,
+    isShowingHint4: false,
+    isShowingHint5: false,
+    isShowingHint6: false,
+  }
+
   playerDidAnswer = (correctly) => {
     console.log('Click reg: Question')
     this.props.answerHandler(correctly)
   }
 
+  showHint = () => {
+    console.log(this.props)
+    console.log(this.props.question.correctAnswerIs)
+    if (this.props.question.answers[0].isCorrect === true) {
+      this.setState({
+        isShowingHint1: true
+      })
+    } else if (this.props.question.answers[1].isCorrect === true) {
+      this.setState({
+        isShowingHint2: true
+      }) 
+    } else if (this.props.question.answers[2].isCorrect === true) {
+      this.setState({
+        isShowingHint3: true
+      }) 
+      }
+  }
+
+  showHint2 = () => {
+    console.log(this.props)
+    console.log(this.props.question.correctAnswerIs)
+    if (this.props.question.answers[0].isCorrect === true) {
+      this.setState({
+        isShowingHint4: true
+      })
+    } else if (this.props.question.answers[1].isCorrect === true) {
+      this.setState({
+        isShowingHint5: true
+      }) 
+    } else if (this.props.question.answers[2].isCorrect === true) {
+      this.setState({
+        isShowingHint6: true
+      }) 
+      }
+  }
+  
+
   render() {
     console.log(this.props)
+    console.log(this)
 //feature - implement type2 question; changed const type to type2
 // if (this.props.question) { //original code
     if (this.props.question && this.props.question.questionType === 'type1') {
@@ -54,14 +101,20 @@ class Question extends Component {
                  src={this.props.question.questionImgUrl}
                  alt='' />
           </div>
-          <div className='question-text'>What breed is the dog on the picture?</div>
+          <div className='question-text'>What breed is the dog on the picture?
+            <button className='hint-button' onClick={() => this.showHint()}>HINT</button>
+          </div>
+
           <div className='answers-container'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[0].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint1 && 'asdf'}>{this.props.question.answers[0].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[1].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint2 && 'asdf'}>{this.props.question.answers[1].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[2].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint3 && 'asdf'}>{this.props.question.answers[2].answer}</AnswerButton>
           </div>
         </Container>
       )
@@ -74,6 +127,7 @@ class Question extends Component {
                           onAnswer={this.props.answerHandler}>
                                     <div >
                                       <img  className='question-img2'
+                                            id={this.state.isShowingHint4 && 'type2-hint'}                                            
                                             src={this.props.question.answers[0].answer}
                                             alt='' />
                                     </div>                          
@@ -82,6 +136,7 @@ class Question extends Component {
                           onAnswer={this.props.answerHandler}>
                                      <div >
                                       <img  className='question-img2'
+                                            id={this.state.isShowingHint5 && 'type2-hint'}                                            
                                             src={this.props.question.answers[1].answer}
                                             alt='' />
                                      </div>                                                             
@@ -90,12 +145,15 @@ class Question extends Component {
                           onAnswer={this.props.answerHandler}>
                                      <div >
                                       <img  className='question-img2'
+                                            id={this.state.isShowingHint6 && 'type2-hint'}
                                             src={this.props.question.answers[2].answer}
                                             alt='' />
                                      </div>                                                    
             </AnswerButton>
           </div>
-          <div className='question-text2'>Find <b>{this.props.question.questionText}</b> in the pictures</div>
+          <div className='question-text2'>Find <b>{this.props.question.questionText}</b> in the pictures
+            <button className='hint-button' onClick={() => this.showHint2()}>HINT</button>
+          </div>
         </Container>
       )    
     } else {
