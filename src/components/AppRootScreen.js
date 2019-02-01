@@ -7,6 +7,7 @@ import GameScreenView from './GameScreenView'
 import LoadingScreen from './LoadingScreen'
 import { connect } from 'react-redux'
 import { updateUIState } from '../store/actions/ui'
+import {setActiveQuestion} from '../store/actions/game'
 
 const Container = posed.div({
   enter: {
@@ -28,19 +29,17 @@ const Container = posed.div({
 class AppRootScreen extends Component {
 
   state = {
-    //  activeScreen changed to game screen for testing
-    //  bug-investigate nextQuestion
-
-    activeScreen: 'game',
-    backgroundState: 'normal'
+    backgroundState: 'start',
+    activeScreen: 'start'
   }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
+    console.log( 'a',this.props.activeQuestion)
     this.setState({
       backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
       wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,
       infoScreenBiggerText: wasPreviousAnswerCorrect ? "Nice!" : 'Nope.',
-      infoScreenSmallerText: wasPreviousAnswerCorrect ? "That's a good breed choice!" : 'How can you not know that?',
+      infoScreenSmallerText: wasPreviousAnswerCorrect ? "You're not bad." : (this.props.activeQuestion.questionType === 'type1' ? `It was an ${this.props.activeQuestion.correctAnswerIs}.` : `It was the pic #${this.props.activeQuestion.correctAnswerIs}.`),
       infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
       activeScreen: 'info'
     })
@@ -55,15 +54,22 @@ class AppRootScreen extends Component {
     this.props.generateQuestion() //bug-investigate nextQuestion- added this line
   }
 
+  startGame = () => {
+    this.setState({
+      backgroundState: 'game',
+      activeScreen: 'game'
+    })
+  }
+
   renderActiveElement = (activeState) => {
 
-    console.log('PROPS', this.props.activeQuestion)
+    // this.props.setActiveQuestion(this.props.activeQuestion)
 
     switch (activeState) {
       case 'start':
         return (
           <Container key='menu-container' className='main-menu-container'>
-            <StartMenuView key='menu-screen' />
+            <StartMenuView key='menu-screen' uiHandler={this.startGame} />
           </Container>
         )
       case 'game':
@@ -103,10 +109,12 @@ AppRootScreen.propTypes = {};
 const mapStateToProps = (state) => {
   return {
     breeds: state.breeds,
-    uiState: state.ui
+    uiState: state.ui,
+    game: state.game
   }
 }
 
 export default connect(mapStateToProps, {
-  updateUIState
+  updateUIState,
+  setActiveQuestion
 })(AppRootScreen)

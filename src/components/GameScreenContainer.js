@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { getImages, getBreedsFromAPI, getImagesFromAPI, cutBreedIntoActive } from '../store/actions/breeds'
-import { initGameStats, updateStats, setActiveQuestion } from '../store/actions/game'
+import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI } from '../store/actions/breeds'
+import { initGameStats, setActiveQuestion, updateStats } from '../store/actions/game'
 import { updateUIState } from '../store/actions/ui'
 import AppRootScreen from './AppRootScreen'
 
@@ -78,7 +78,7 @@ class GameScreenContainer extends React.Component {
       .slice(0, 3)
       .map((breedName) => activeBreeds[breedName])
 
-    const type = 'type1' // Math.random() < 0.25 ? 'type2' :
+    const type = Math.random() < 0.25 ? 'type2' : 'type1'
     let answerIndex = Math.floor(Math.random() * 3)
 
     this.setState({
@@ -96,7 +96,8 @@ class GameScreenContainer extends React.Component {
           answer: type === 'type1' ? breeds[2].breedName : pickRandomElement(breeds[2].images),
           isCorrect: answerIndex === 2
         }],
-        breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared
+        breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared,
+        correctAnswerIs: type === 'type1' ? breeds[answerIndex].breedName : (answerIndex + 1).toString()
       }
     })
   }
@@ -117,12 +118,11 @@ class GameScreenContainer extends React.Component {
   render() {
     console.log(this.props.game.activeQuestion)
 
-
-
     return (
-    //  <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer}/>
-    //  bug-investigate nextQuestion- updated above line
-      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
+      //  <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer}/>
+      //  bug-investigate nextQuestion- updated above line
+      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer}
+                     generateQuestion={this.generateQuestion} />
     )
   }
 }

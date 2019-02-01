@@ -36,10 +36,7 @@ const TextButton = posed.div({
 class StartMenuView extends Component {
 
   startGame = () => {
-    // this.props.updateUIState({
-    //   backgroundState: 'game',
-    //   activeScreen: 'game'
-    // })
+    this.props.uiHandler()
   }
 
   render() {

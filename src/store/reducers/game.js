@@ -9,7 +9,7 @@ const initialState = {
     successRate: ''
   },
   difficultyLevel: 0,
-  activeQuestion: {}
+  activeQuestion: {},
 }
 
 export default (state = initialState, action = {}) => {
