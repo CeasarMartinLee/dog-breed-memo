@@ -27,10 +27,12 @@ class GameScreenContainer extends React.Component {
   updateActiveBreeds = () => {
 
     const breedsArray = Object.keys(this.props.breeds['all']);
-    const threeRandomNames = [];
-    for (let i = 0; i < 3; i++) {
-      threeRandomNames.push(breedsArray[Math.floor(Math.random() * (breedsArray.length))])
-    }
+
+    const threeRandomNames = Object.keys(this.props.breeds.all)
+      .map((a) => ({ sort: Math.random(), value: a }))
+      .sort((a, b) => a.sort - b.sort)
+      .map((a) => a.value)
+      .slice(0, 3)
 
     threeRandomNames.forEach(breedName => {
       this.props.cutBreedIntoActive(breedName);
