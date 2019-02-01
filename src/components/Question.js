@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import AnswerButton from './AnswerButton'
 import posed from 'react-pose'
+import { connect } from 'react-redux'
 
 const Container = posed.div({
   stateBefore: {
@@ -46,9 +46,14 @@ class Question extends Component {
     console.log(this.props)
 //feature - implement type2 question; changed const type to type2
 // if (this.props.question) { //original code
+
+    const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
+
     if (this.props.question && this.props.question.questionType === 'type1') {
       return (
         <Container pose='stateActive' className='question-container'>
+          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 &&
+          <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
           <div className='img-container-box'>
             <img className='question-img'
                  src={this.props.question.questionImgUrl}
@@ -68,36 +73,37 @@ class Question extends Component {
     } else if (this.props.question && this.props.question.questionType === 'type2') {
       return (
         <Container pose='stateActive'>
-        {/* <Container pose='stateActive' className='question-container'> */}
+          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 && <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
+          {/* <Container pose='stateActive' className='question-container'> */}
           <div className='answers-container2'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                    <div >
-                                      <img  className='question-img2'
-                                            src={this.props.question.answers[0].answer}
-                                            alt='' />
-                                    </div>                          
+              <div>
+                <img className='question-img2'
+                     src={this.props.question.answers[0].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                     <div >
-                                      <img  className='question-img2'
-                                            src={this.props.question.answers[1].answer}
-                                            alt='' />
-                                     </div>                                                             
+              <div>
+                <img className='question-img2'
+                     src={this.props.question.answers[1].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                     <div >
-                                      <img  className='question-img2'
-                                            src={this.props.question.answers[2].answer}
-                                            alt='' />
-                                     </div>                                                    
+              <div>
+                <img className='question-img2'
+                     src={this.props.question.answers[2].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
           </div>
           <div className='question-text2'>Find <b>{this.props.question.questionText}</b> in the pictures</div>
         </Container>
-      )    
+      )
     } else {
       return <div></div>
     }
@@ -106,4 +112,10 @@ class Question extends Component {
 
 Question.propTypes = {};
 
-export default Question;
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  }
+}
+
+export default connect(mapStateToProps, {})(Question)

@@ -28,9 +28,9 @@ export default (state = initialState, action = {}) => {
         ...state,
         currentPerformance: {
           ...state.currentPerformance,
-          numOfAnsweredQuestions: state.currentPerformance.numOfAnsweredQuestions + 1,
-          numOfCorrect: (state.currentPerformance.numOfCorrect + Number(action.payload)),
-          currentStreak: action.payload ? (state.currentPerformance.currentStreak + 1) : 0
+          numOfAnsweredQuestions: action.payload.currentPerformance.numOfAnsweredQuestions,
+          numOfCorrect: action.payload.currentPerformance.numOfCorrect,
+          currentStreak: action.payload.currentPerformance.currentStreak
         }
       }
     default:

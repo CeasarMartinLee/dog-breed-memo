@@ -49,20 +49,19 @@ class GameScreenContainer extends React.Component {
 
   updateGameScreenContainerStats = (correct) => {
 
-    if ((this.state.game.currentPerformance.currentStreak % 10 === 0) && (this.state.currentPerformance.currentStreak !== 0)) {
+    if ((this.props.game.currentPerformance.currentStreak % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
 
-    this.setState(
+    console.log('AAA', this.props.game, correct, Number(correct), (this.props.game.currentPerformance.numOfCorrect + Number(correct)))
+    this.props.updateStats(
       {
-        game: {
-          ...this.state.game,
-          currentPerformance: {
-            ...this.state.game.currentPerformance,
-            numOfAnsweredQuestions: this.state.game.currentPerformance.numOfCorrect + 1,
-            numOfCorrect: this.state.game.currentPerformance.numOfCorrect + correct,
-            currentStreak: correct ? this.state.game.currentPerformance.currentStreak + 1 : 0
-          }
+        ...this.props.game,
+        currentPerformance: {
+          ...this.props.game.currentPerformance,
+          numOfAnsweredQuestions: (this.props.game.currentPerformance.numOfAnsweredQuestions + 1),
+          numOfCorrect: (this.props.game.currentPerformance.numOfCorrect + Number(correct)),
+          currentStreak: (correct ? this.props.game.currentPerformance.currentStreak + 1 : 0)
         }
       })
   }
@@ -103,7 +102,7 @@ class GameScreenContainer extends React.Component {
   }
 
   handleAnswer = (isCorrect) => {
-
+    this.updateGameScreenContainerStats(isCorrect)
   }
 
   componentDidMount() {
