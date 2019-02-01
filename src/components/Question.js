@@ -37,16 +37,7 @@ const Container = posed.div({
 
 class Question extends Component {
 
-  playerDidAnswer = (correctly) => {
-    console.log('Click reg: Question')
-    this.props.answerHandler(correctly)
-  }
-
   render() {
-    console.log(this.props)
-//feature - implement type2 question; changed const type to type2
-// if (this.props.question) { //original code
-
     const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
 
     if (this.props.question && this.props.question.questionType === 'type1') {
@@ -73,8 +64,8 @@ class Question extends Component {
     } else if (this.props.question && this.props.question.questionType === 'type2') {
       return (
         <Container pose='stateActive'>
-          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 && <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
-          {/* <Container pose='stateActive' className='question-container'> */}
+          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 &&
+          <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
           <div className='answers-container2'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
                           onAnswer={this.props.answerHandler}>
@@ -101,7 +92,9 @@ class Question extends Component {
               </div>
             </AnswerButton>
           </div>
-          <div className='question-text2'>Find <b>{this.props.question.questionText}</b> in the pictures</div>
+          <div className='question-text2'>Which one
+            is <b>{this.props.question.questionText[0].toUpperCase() + this.props.question.questionText.slice(1)}</b>?
+          </div>
         </Container>
       )
     } else {

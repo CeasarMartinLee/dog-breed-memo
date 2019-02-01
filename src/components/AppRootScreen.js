@@ -39,7 +39,7 @@ class AppRootScreen extends Component {
       backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
       wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,
       infoScreenBiggerText: wasPreviousAnswerCorrect ? "Nice!" : 'Nope.',
-      infoScreenSmallerText: wasPreviousAnswerCorrect ? "You're not bad." : (this.props.activeQuestion.questionType === 'type1' ? `It was an ${this.props.activeQuestion.correctAnswerIs}.` : `It was the pic #${this.props.activeQuestion.correctAnswerIs}.`),
+      infoScreenSmallerText: wasPreviousAnswerCorrect ? "You're not that bad." : (this.props.activeQuestion.questionType === 'type1' ? `It was a ${this.props.activeQuestion.correctAnswerIs[0].toUpperCase() + this.props.activeQuestion.correctAnswerIs.slice(1)}.` : `It was the pic #${this.props.activeQuestion.correctAnswerIs}.`),
       infoScreenTextColor: wasPreviousAnswerCorrect ? '#333333' : '#ffffff',
       activeScreen: 'info'
     })

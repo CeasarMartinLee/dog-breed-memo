@@ -70,6 +70,7 @@ text-align: center;
   margin: auto;
   border: 6px solid white;
   box-shadow: 2px 2px 5px 0px #3b3b3b;
+  object-fit: contain;
 }
 
 .question-img2 {
@@ -83,6 +84,7 @@ text-align: center;
   margin: auto;
   border: 6px solid white;
   box-shadow: 2px 2px 5px 0px #3b3b3b;
+  transition: all 100ms ease-in-out;
 }
 
 .question-text {
@@ -130,6 +132,10 @@ text-align: center;
   height: 160px;
 }
 
+.answers-container2 > * {
+  margin: 0 10px 0 10px;
+}
+
 .option {
   font-size: 24px;
   font-weight: 500;
@@ -143,6 +149,10 @@ text-align: center;
   color: white;
   border-radius: 25px;
   box-shadow: 6px 6px 14px 1px rgba(00, 00, 00, 0.2);
+}
+
+.option:first-letter {
+  text-transform: capitalize;
 }
 
 .option:hover {
