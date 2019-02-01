@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import AnswerButton from './AnswerButton'
 import posed from 'react-pose'
 import { connect } from 'react-redux'
+import ReactLoading from './LoadingScreen'
+import Textfit from 'react-textfit'
 
 const Container = posed.div({
   stateBefore: {
@@ -62,8 +64,6 @@ class Question extends Component {
     } else if (this.props.question && this.props.question.questionType === 'type2') {
       return (
         <Container pose='stateActive'>
-          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 &&
-          <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
           <div className='answers-container2'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
                           onAnswer={this.props.answerHandler}>
@@ -96,7 +96,21 @@ class Question extends Component {
         </Container>
       )
     } else {
-      return <div></div>
+      return (<Container pose='stateActive'>
+        <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
+          {this.props.showLoading &&
+          <ReactLoading type='balls' color={this.props.textColor} className='loadingbar' width='10vw' />}
+        </Textfit></div>
+        <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
+          <b>...</b>
+        </Textfit></div>
+        <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
+          One moment please.
+        </Textfit></div>
+      </Container>)
     }
   }
 }

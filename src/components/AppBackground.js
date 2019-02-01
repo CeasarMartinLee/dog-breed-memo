@@ -6,16 +6,20 @@ import { connect } from 'react-redux'
 
 const AppBackgroundContainer = posed.div({
   game: {
-    backgroundImage: 'linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975)'
+    backgroundImage: 'linear-gradient(to right top, #051937, #003e65, #006883, #009188, #00b975)',
+    color: '#ffffff'
   },
   answerWrong: {
-    backgroundImage: 'linear-gradient(to right top, #ff00a2, #f6007c, #e70059, #d4003a, #bd081d)'
+    backgroundImage: 'linear-gradient(to right top, #ff00a2, #f6007c, #e70059, #d4003a, #bd081d)',
+    color: '#ffffff'
   },
   answerCorrect: {
-    backgroundImage: 'linear-gradient(to right top, #00ff18, #00ff30, #00ff41, #00ff4e, #00ff5a)'
+    backgroundImage: 'linear-gradient(to right top, #00ff18, #00ff30, #00ff41, #00ff4e, #00ff5a)',
+    color: '#333333'
   },
-  startScreen: {
-    backgroundImage: 'linear-gradient(to right top, #1e5ebb, #1150b6, #0b41af, #1032a7, #1a1f9e)'
+  start: {
+    backgroundImage: 'linear-gradient(to right top, #051937, #0e213e, #162945, #1f314b, #273952)',
+    color: '#ffffff'
   }
 })
 
