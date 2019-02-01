@@ -43,8 +43,6 @@ class Question extends Component {
     if (this.props.question && this.props.question.questionType === 'type1') {
       return (
         <Container pose='stateActive' className='question-container'>
-          {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 &&
-          <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
           <div className='img-container-box'>
             <img className='question-img'
                  src={this.props.question.questionImgUrl}

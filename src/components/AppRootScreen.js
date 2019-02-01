@@ -65,6 +65,8 @@ class AppRootScreen extends Component {
 
     // this.props.setActiveQuestion(this.props.activeQuestion)
 
+    const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
+
     switch (activeState) {
       case 'start':
         return (

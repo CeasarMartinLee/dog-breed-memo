@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import posed from 'react-pose'
 import './Styles.css'
+import { connect } from 'react-redux'
 
 const AppBackgroundContainer = posed.div({
   game: {
@@ -21,9 +22,13 @@ const AppBackgroundContainer = posed.div({
 class AppBackground extends Component {
 
   render() {
-    console.log('Rerender bkgnd', this.props.colorState)
+
+    const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
+
     return (
       <AppBackgroundContainer pose={this.props.colorState} className='game-screen' {...this.props}>
+        {this.props.game.currentPerformance.numOfAnsweredQuestions > 0 &&
+        <div className='game-stats-container'>{playerPerformance}<span>answers correct</span></div>}
         {this.props.children}
       </AppBackgroundContainer>
     )
@@ -34,4 +39,11 @@ AppBackground.propTypes = {
   colorState: PropTypes.string
 };
 
-export default React.forwardRef((props, innerRef) => <AppBackground ref={innerRef} {...props} />);
+const mapStateToProps = (state) => {
+  return {
+    game: state.game
+  }
+}
+
+export default connect(mapStateToProps, {})(React.forwardRef((props, innerRef) => <AppBackground
+  ref={innerRef} {...props} />))
