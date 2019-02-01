@@ -29,6 +29,14 @@ const PosedAnswerButton = posed.div({
     transform: {
       duration: 500
     }
+  },
+  asdf: {
+    backgroundImage: 'linear-gradient(to right top, #079d1c, #44b244, #68c867, #89dd88, #aaf3aa)',
+    scale: 1.05,
+    color: '#051937',
+    transform: {
+      duration: 500
+    }
   }
 })
 
@@ -41,7 +49,7 @@ class AnswerButton extends Component {
 
   render() {
     return (
-      <PosedAnswerButton className='option' onClick={this.handleClick}>
+      <PosedAnswerButton pose={this.props.pose} className='option' onClick={this.handleClick}>
         {this.props.children}
       </PosedAnswerButton>
     )

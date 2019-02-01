@@ -39,6 +39,57 @@ const Container = posed.div({
 
 class Question extends Component {
 
+  state = {
+    isShowingHint1: false,
+    isShowingHint2: false,
+    isShowingHint3: false,
+    isShowingHint4: false,
+    isShowingHint5: false,
+    isShowingHint6: false,
+  }
+
+  playerDidAnswer = (correctly) => {
+    console.log('Click reg: Question')
+    this.props.answerHandler(correctly)
+  }
+
+  showHint = () => {
+    console.log(this.props)
+    console.log(this.props.question.correctAnswerIs)
+    if (this.props.question.answers[0].isCorrect === true) {
+      this.setState({
+        isShowingHint1: true
+      })
+    } else if (this.props.question.answers[1].isCorrect === true) {
+      this.setState({
+        isShowingHint2: true
+      })
+    } else if (this.props.question.answers[2].isCorrect === true) {
+      this.setState({
+        isShowingHint3: true
+      })
+      }
+  }
+
+  showHint2 = () => {
+    console.log(this.props)
+    console.log(this.props.question.correctAnswerIs)
+    if (this.props.question.answers[0].isCorrect === true) {
+      this.setState({
+        isShowingHint4: true
+      })
+    } else if (this.props.question.answers[1].isCorrect === true) {
+      this.setState({
+        isShowingHint5: true
+      })
+    } else if (this.props.question.answers[2].isCorrect === true) {
+      this.setState({
+        isShowingHint6: true
+      })
+      }
+  }
+
+
   render() {
     const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
 
@@ -50,14 +101,20 @@ class Question extends Component {
                  src={this.props.question.questionImgUrl}
                  alt='' />
           </div>
-          <div className='question-text'>What breed is the dog on the picture?</div>
+          <div className='question-text'>What breed is the dog on the picture?
+            <button className='hint-button' onClick={() => this.showHint()}>HINT</button>
+          </div>
+
           <div className='answers-container'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[0].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint1 && 'asdf'}>{this.props.question.answers[0].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[1].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint2 && 'asdf'}>{this.props.question.answers[1].answer}</AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
-                          onAnswer={this.props.answerHandler}>{this.props.question.answers[2].answer}</AnswerButton>
+                          onAnswer={this.props.answerHandler}
+                          pose={this.state.isShowingHint3 && 'asdf'}>{this.props.question.answers[2].answer}</AnswerButton>
           </div>
         </Container>
       )
@@ -67,27 +124,30 @@ class Question extends Component {
           <div className='answers-container2'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
                           onAnswer={this.props.answerHandler}>
-              <div>
-                <img className='question-img2'
-                     src={this.props.question.answers[0].answer}
-                     alt='' />
-              </div>
+                                    <div >
+                                      <img  className='question-img2'
+                                            id={this.state.isShowingHint4 && 'type2-hint'}
+                                            src={this.props.question.answers[0].answer}
+                                            alt='' />
+                                    </div>                          
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
                           onAnswer={this.props.answerHandler}>
-              <div>
-                <img className='question-img2'
-                     src={this.props.question.answers[1].answer}
-                     alt='' />
-              </div>
+                                     <div >
+                                      <img  className='question-img2'
+                                            id={this.state.isShowingHint5 && 'type2-hint'}
+                                            src={this.props.question.answers[1].answer}
+                                            alt='' />
+                                     </div>                                                             
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
                           onAnswer={this.props.answerHandler}>
-              <div>
-                <img className='question-img2'
-                     src={this.props.question.answers[2].answer}
-                     alt='' />
-              </div>
+                                     <div >
+                                      <img  className='question-img2'
+                                            id={this.state.isShowingHint6 && 'type2-hint'}
+                                            src={this.props.question.answers[2].answer}
+                                            alt='' />
+                                     </div>                                                    
             </AnswerButton>
           </div>
           <div className='question-text2'>Which one
