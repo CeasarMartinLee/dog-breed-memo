@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI } from '../store/actions/breeds'
+import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI, updateBreedAppeared } from '../store/actions/breeds'
 import { initGameStats, setActiveQuestion, updateStats } from '../store/actions/game'
 import { updateUIState } from '../store/actions/ui'
 import AppRootScreen from './AppRootScreen'
@@ -51,11 +51,10 @@ class GameScreenContainer extends React.Component {
 
   updateGameScreenContainerStats = (correct) => {
 
-    if ((this.props.game.currentPerformance.currentStreak % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
+    if (((this.props.game.currentPerformance.currentStreak + 1) % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
 
-    console.log('AAA', this.props.game, correct, Number(correct), (this.props.game.currentPerformance.numOfCorrect + Number(correct)))
     this.props.updateStats(
       {
         ...this.props.game,
@@ -101,6 +100,7 @@ class GameScreenContainer extends React.Component {
         correctAnswerIs: type === 'type1' ? breeds[answerIndex].breedName : (answerIndex + 1).toString()
       }
     })
+    this.props.updateBreedAppeared(breeds[answerIndex].breedName)
   }
 
   handleAnswer = (isCorrect) => {
@@ -144,6 +144,7 @@ export default connect(mapStateToProps, {
   initGameStats,
   updateStats,
   updateUIState,
-  setActiveQuestion
+  setActiveQuestion,
+  updateBreedAppeared
 })(GameScreenContainer)
 

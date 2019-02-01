@@ -242,6 +242,11 @@
 
 }
 
+.hint-button:hover {
+  cursor: pointer;
+  transform: scale(1.2, 1.2);
+}
+
 #type2-hint {
   border-color: rgb(119, 233, 119);
 

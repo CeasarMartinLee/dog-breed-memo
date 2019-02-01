@@ -31,6 +31,17 @@ export default (state = {}, action = {}) => {
           }
         }
       }
+    case 'UPDATE_BREED_APPEARED':
+      return {
+        ...state,
+        active: {
+          ...state.active,
+          [action.payload]: {
+            ...state.active[action.payload],
+            hasAlreadyAppeared: true
+          }
+        }
+      }
 
     default:
       return state

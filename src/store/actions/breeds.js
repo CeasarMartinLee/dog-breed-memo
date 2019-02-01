@@ -43,6 +43,13 @@ export function getImages(payload) {
   }
 }
 
+export function updateBreedAppeared(whichOne) {
+  return {
+    type: 'UPDATE_BREED_APPEARED',
+    payload: whichOne
+  }
+}
+
 export function getImagesFromAPI(breedName) {
   return function (dispatch) {
     request(`https://dog.ceo/api/breed/${breedName}/images`)
