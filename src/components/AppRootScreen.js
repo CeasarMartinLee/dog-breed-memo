@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import './Styles.css'
 import posed, { PoseGroup } from 'react-pose'
 import AppBackground from './AppBackground'
@@ -7,7 +6,6 @@ import StartMenuView from './StartMenuView'
 import GameScreenView from './GameScreenView'
 import LoadingScreen from './LoadingScreen'
 import { connect } from 'react-redux'
-import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI } from '../store/actions/breeds'
 import { updateUIState } from '../store/actions/ui'
 
 const Container = posed.div({
@@ -33,12 +31,12 @@ class AppRootScreen extends Component {
     //  activeScreen changed to game screen for testing
     //  bug-investigate nextQuestion
 
-    // activeScreen: 'start',
-    // backgroundState: 'start'
+    activeScreen: 'game',
+    backgroundState: 'normal'
   }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
-    this.props.updateUIState({
+    this.setState({
       backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
       wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,
       infoScreenBiggerText: wasPreviousAnswerCorrect ? "Nice!" : 'Nope.',
@@ -49,10 +47,12 @@ class AppRootScreen extends Component {
 
     this.props.answerHandler(wasPreviousAnswerCorrect)
 
-    setTimeout(() => this.props.updateUIState({
+    setTimeout(() => this.setState({
       backgroundState: 'game',
       activeScreen: 'game'
     }), 3000)
+    console.log(this.props)
+    this.props.generateQuestion() //bug-investigate nextQuestion- added this line
   }
 
   renderActiveElement = (activeState) => {
@@ -75,8 +75,8 @@ class AppRootScreen extends Component {
       case 'info':
         return (
           <Container key='menu-container-a' className='main-menu-container'>
-            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.props.uiState.infoScreenBiggerText}
-                           smallerText={this.props.uiState.infoScreenSmallerText} textColor={this.props.uiState.infoScreenTextColor} />
+            <LoadingScreen key='game-screen-2' showLoading={true} biggerText={this.state.infoScreenBiggerText}
+                           smallerText={this.state.infoScreenSmallerText} textColor={this.state.infoScreenTextColor} />
           </Container>
         )
       default:
@@ -86,10 +86,11 @@ class AppRootScreen extends Component {
 
   render() {
     return (
-      <AppBackground colorState={this.props.uiState.backgroundState}>
+      <AppBackground colorState={this.state.backgroundState}>
+
         <PoseGroup animateOnMount='true'>
           {
-            this.renderActiveElement(this.props.uiState.activeScreen)
+            this.renderActiveElement(this.state.activeScreen)
           }
         </PoseGroup>
       </AppBackground>
@@ -97,9 +98,7 @@ class AppRootScreen extends Component {
   }
 }
 
-AppRootScreen.propTypes = {
-  answerHandler: PropTypes.func.isRequired
-};
+AppRootScreen.propTypes = {};
 
 const mapStateToProps = (state) => {
   return {

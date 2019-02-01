@@ -36,10 +36,10 @@ const TextButton = posed.div({
 class StartMenuView extends Component {
 
   startGame = () => {
-    this.props.updateUIState({
-      backgroundState: 'game',
-      activeScreen: 'game'
-    })
+    // this.props.updateUIState({
+    //   backgroundState: 'game',
+    //   activeScreen: 'game'
+    // })
   }
 
   render() {
@@ -60,14 +60,4 @@ class StartMenuView extends Component {
 StartMenuView.propTypes = {};
 
 // export default StartMenuView;
-// export default React.forwardRef((props, innerRef) => <StartMenuView ref={innerRef} {...props} />);
-
-const mapStateToProps = (state) => {
-  return {
-    uiState: state.ui
-  }
-}
-
-export default connect(mapStateToProps, {
-  updateUIState
-})(React.forwardRef((props, innerRef) => <StartMenuView ref={innerRef} {...props} />))
+export default React.forwardRef((props, innerRef) => <StartMenuView ref={innerRef} {...props} />);

@@ -11,6 +11,19 @@ const pickRandomElement = (elements) => {
 
 class GameScreenContainer extends React.Component {
 
+  state = {
+    game: {
+      playerName: '',
+      currentPerformance: {
+        numOfAnsweredQuestions: 0,
+        numOfCorrect: 0,
+        currentStreak: 0,
+        successRate: ''
+      },
+      difficultyLevel: 0
+    }
+  }
+
   updateActiveBreeds = () => {
 
     const breedsArray = Object.keys(this.props.breeds['all']);
@@ -35,12 +48,12 @@ class GameScreenContainer extends React.Component {
   }
 
   updateGameScreenContainerStats = (correct) => {
-// this action replaces setState(), needs whatever correct is and passes as a action.payload
-    this.props.updateStats(correct); // FIX THIS
-    if ((this.props.game.currentPerformance.currentStreak % 10 === 0) && (this.props.game.currentPerformance.currentStreak !== 0)) {
+
+    if ((this.state.game.currentPerformance.currentStreak % 10 === 0) && (this.state.currentPerformance.currentStreak !== 0)) {
       this.updateActiveBreeds()
     }
-    /* this.setState(
+
+    this.setState(
       {
         game: {
           ...this.state.game,
@@ -52,7 +65,6 @@ class GameScreenContainer extends React.Component {
           }
         }
       })
-  } */
   }
 
   generateQuestion = () => {
@@ -66,11 +78,11 @@ class GameScreenContainer extends React.Component {
       .slice(0, 3)
       .map((breedName) => activeBreeds[breedName])
 
-    const type = Math.random() < 0.25 ? 'type2' : 'type1'
-
+    const type = 'type1' // Math.random() < 0.25 ? 'type2' :
     let answerIndex = Math.floor(Math.random() * 3)
 
-    this.props.setActiveQuestion({
+    this.setState({
+      activeQuestion: {
         questionType: type,
         questionImgUrl: type === 'type1' ? pickRandomElement(breeds[answerIndex].images) : '',
         questionText: type === 'type2' ? breeds[answerIndex].breedName : '',
@@ -85,7 +97,8 @@ class GameScreenContainer extends React.Component {
           isCorrect: answerIndex === 2
         }],
         breedShownFirstTime: !breeds[answerIndex].hasAlreadyAppeared
-      })
+      }
+    })
   }
 
   handleAnswer = (isCorrect) => {
@@ -109,7 +122,7 @@ class GameScreenContainer extends React.Component {
     return (
     //  <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer}/>
     //  bug-investigate nextQuestion- updated above line
-      <AppRootScreen activeQuestion={this.props.game.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
+      <AppRootScreen activeQuestion={this.state.activeQuestion} answerHandler={this.handleAnswer} generateQuestion={this.generateQuestion} />
     )
   }
 }
