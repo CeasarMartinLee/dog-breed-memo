@@ -100,9 +100,7 @@ class Question extends Component {
                  src={this.props.question.questionImgUrl}
                  alt='' />
           </div>
-          <div className='question-text'>What breed is the dog on the picture?
-            <button className='hint-button' onClick={() => this.showHint()}>HINT</button>
-          </div>
+          <div className='question-text'>What breed is the dog on the picture?</div>
 
           <div className='answers-container'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
@@ -115,6 +113,8 @@ class Question extends Component {
                           onAnswer={this.props.answerHandler}
                           pose={this.state.isShowingHint3 && 'asdf'}>{this.props.question.answers[2].answer}</AnswerButton>
           </div>
+          {this.props.question.breedShownFirstTime &&
+          <div className='hint-button' onClick={() => this.showHint()}><h5>?</h5>Need help</div>}
         </Container>
       )
     } else if (this.props.question && this.props.question.questionType === 'type2') {
@@ -152,6 +152,8 @@ class Question extends Component {
           <div className='question-text2'>Which one
             is <b>{this.props.question.questionText[0].toUpperCase() + this.props.question.questionText.slice(1)}</b>?
           </div>
+          {this.props.question.breedShownFirstTime &&
+          <div className='hint-button' onClick={() => this.showHint2()}><h5>?</h5>Need help</div>}
         </Container>
       )
     } else {

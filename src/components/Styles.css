@@ -227,19 +227,23 @@
 }
 
 .hint-button {
-  position: relative;
-  display: inline-block;
-  font-family: 'Dosis';
-  font-style: italic;
-  background-color: Transparent;
-  background-repeat:no-repeat;
+  font-size: 18px;
+  line-height: 40px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: auto;
+  height: auto;
+  margin: auto 20px 20px auto;
+  transition: all 100ms ease-in-out;
+  text-align: center;
   color: white;
-  transform: skew(-20deg);
-  /* padding-bottom: 5px; */
-  justify-content: center;
-  margin-left: 10px;
-  height: 20px;
+}
 
+.hint-button > h5 {
+  font-size: 36px;
+  margin: 0 0 0 0;
+  padding: 0;
 }
 
 .hint-button:hover {
