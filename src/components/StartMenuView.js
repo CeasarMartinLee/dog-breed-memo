@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import posed from 'react-pose'
 import Textfit from 'react-textfit'
 import './Styles.css'
-import { connect } from 'react-redux'
-import { updateUIState } from '../store/actions/ui'
 
 const TextContainer = posed.div({
   hoverable: true,

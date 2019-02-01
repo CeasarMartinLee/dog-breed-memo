@@ -1,6 +1,12 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import { cutBreedIntoActive, getBreedsFromAPI, getImages, getImagesFromAPI, updateBreedAppeared } from '../store/actions/breeds'
+import {
+  cutBreedIntoActive,
+  getBreedsFromAPI,
+  getImages,
+  getImagesFromAPI,
+  updateBreedAppeared
+} from '../store/actions/breeds'
 import { initGameStats, setActiveQuestion, updateStats } from '../store/actions/game'
 import { updateUIState } from '../store/actions/ui'
 import AppRootScreen from './AppRootScreen'

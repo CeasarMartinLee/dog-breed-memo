@@ -1,4 +1,4 @@
-import { GET_BREEDS, GET_IMAGES, CUT_BREED } from '../actions/breeds';
+import { CUT_BREED, GET_BREEDS, GET_IMAGES } from '../actions/breeds';
 
 export default (state = {}, action = {}) => {
   switch (action.type) {

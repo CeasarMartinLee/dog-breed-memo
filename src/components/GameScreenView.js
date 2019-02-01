@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AnswerButton from './AnswerButton'
-import posed from 'react-pose'
 import './Styles.css'
 import Question from './Question'
 

@@ -1,4 +1,4 @@
-import { INIT_GAME, UPDATE_STATS, SET_ACTIVE_QUESTION } from '../actions/game';
+import { INIT_GAME, SET_ACTIVE_QUESTION, UPDATE_STATS } from '../actions/game';
 
 const initialState = {
   playerName: '',
@@ -9,7 +9,7 @@ const initialState = {
     successRate: ''
   },
   difficultyLevel: 0,
-  activeQuestion: {},
+  activeQuestion: {}
 }
 
 export default (state = initialState, action = {}) => {

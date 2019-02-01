@@ -7,7 +7,7 @@ import GameScreenView from './GameScreenView'
 import LoadingScreen from './LoadingScreen'
 import { connect } from 'react-redux'
 import { updateUIState } from '../store/actions/ui'
-import {setActiveQuestion} from '../store/actions/game'
+import { setActiveQuestion } from '../store/actions/game'
 
 const Container = posed.div({
   enter: {
@@ -34,7 +34,7 @@ class AppRootScreen extends Component {
   }
 
   nextQuestion = (wasPreviousAnswerCorrect) => {
-    console.log( 'a',this.props.activeQuestion)
+    console.log('a', this.props.activeQuestion)
     this.setState({
       backgroundState: wasPreviousAnswerCorrect ? 'answerCorrect' : 'answerWrong',
       wasPreviousAnswerCorrect: wasPreviousAnswerCorrect,

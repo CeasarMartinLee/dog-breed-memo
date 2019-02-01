@@ -61,4 +61,4 @@ AnswerButton.propTypes = {
   isCorrect: PropTypes.bool.isRequired
 };
 
-export default React.forwardRef((props, innerRef) => <AnswerButton ref={innerRef} {...props}/>);
+export default React.forwardRef((props, innerRef) => <AnswerButton ref={innerRef} {...props} />);

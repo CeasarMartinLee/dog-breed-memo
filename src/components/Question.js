@@ -45,7 +45,7 @@ class Question extends Component {
     isShowingHint3: false,
     isShowingHint4: false,
     isShowingHint5: false,
-    isShowingHint6: false,
+    isShowingHint6: false
   }
 
   playerDidAnswer = (correctly) => {
@@ -68,7 +68,7 @@ class Question extends Component {
       this.setState({
         isShowingHint3: true
       })
-      }
+    }
   }
 
   showHint2 = () => {
@@ -86,9 +86,8 @@ class Question extends Component {
       this.setState({
         isShowingHint6: true
       })
-      }
+    }
   }
-
 
   render() {
     const playerPerformance = Math.floor(this.props.game.currentPerformance.numOfCorrect / this.props.game.currentPerformance.numOfAnsweredQuestions * 100).toString() + '%'
@@ -124,30 +123,30 @@ class Question extends Component {
           <div className='answers-container2'>
             <AnswerButton isCorrect={this.props.question.answers[0].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                    <div >
-                                      <img  className='question-img2'
-                                            id={this.state.isShowingHint4 && 'type2-hint'}
-                                            src={this.props.question.answers[0].answer}
-                                            alt='' />
-                                    </div>                          
+              <div>
+                <img className='question-img2'
+                     id={this.state.isShowingHint4 && 'type2-hint'}
+                     src={this.props.question.answers[0].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[1].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                     <div >
-                                      <img  className='question-img2'
-                                            id={this.state.isShowingHint5 && 'type2-hint'}
-                                            src={this.props.question.answers[1].answer}
-                                            alt='' />
-                                     </div>                                                             
+              <div>
+                <img className='question-img2'
+                     id={this.state.isShowingHint5 && 'type2-hint'}
+                     src={this.props.question.answers[1].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
             <AnswerButton isCorrect={this.props.question.answers[2].isCorrect}
                           onAnswer={this.props.answerHandler}>
-                                     <div >
-                                      <img  className='question-img2'
-                                            id={this.state.isShowingHint6 && 'type2-hint'}
-                                            src={this.props.question.answers[2].answer}
-                                            alt='' />
-                                     </div>                                                    
+              <div>
+                <img className='question-img2'
+                     id={this.state.isShowingHint6 && 'type2-hint'}
+                     src={this.props.question.answers[2].answer}
+                     alt='' />
+              </div>
             </AnswerButton>
           </div>
           <div className='question-text2'>Which one
@@ -158,16 +157,16 @@ class Question extends Component {
     } else {
       return (<Container pose='stateActive'>
         <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
-                                                                                                 forceSingleModeWidth={false}>
+                                                                            forceSingleModeWidth={false}>
           {this.props.showLoading &&
           <ReactLoading type='balls' color={this.props.textColor} className='loadingbar' width='10vw' />}
         </Textfit></div>
         <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
-                                                                                                 forceSingleModeWidth={false}>
+                                                                            forceSingleModeWidth={false}>
           <b>...</b>
         </Textfit></div>
         <div className='main-menu-l1' style={{ color: '#ffffff' }}><Textfit mode='single'
-                                                                                                 forceSingleModeWidth={false}>
+                                                                            forceSingleModeWidth={false}>
           One moment please.
         </Textfit></div>
       </Container>)

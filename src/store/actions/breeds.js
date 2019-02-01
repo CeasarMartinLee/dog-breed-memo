@@ -28,7 +28,6 @@ export function getBreedsFromAPI() {
   }
 }
 
-
 export function cutBreedIntoActive(breedName) {
   return {
     type: CUT_BREED,

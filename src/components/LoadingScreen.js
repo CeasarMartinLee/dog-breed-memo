@@ -41,14 +41,17 @@ class LoadingScreen extends Component {
   render() {
     return (
       <div>
-        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }}><Textfit mode='single' forceSingleModeWidth={false}>
+        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
           {this.props.showLoading &&
           <ReactLoading type='balls' color={this.props.textColor} className='loadingbar' width='10vw' />}
         </Textfit></TextContainer>
-        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }} ><Textfit mode='single' forceSingleModeWidth={false}>
+        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
           <b>{this.props.biggerText}</b>
         </Textfit></TextContainer>
-        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }} ><Textfit mode='single' forceSingleModeWidth={false}>
+        <TextContainer className='main-menu-l1' style={{ color: this.props.textColor }}><Textfit mode='single'
+                                                                                                 forceSingleModeWidth={false}>
           {this.props.smallerText}
         </Textfit></TextContainer>
       </div>

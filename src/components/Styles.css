@@ -209,15 +209,15 @@
 
 .loadingbar-question {
   position: fixed;
-  height: 400px;
-  width: 400px;
-  background-color: red;
+  z-index: 999;
   top: 0;
+  right: 0;
   bottom: 0;
   left: 0;
-  right: 0;
+  width: 400px;
+  height: 400px;
   margin: auto;
-  z-index: 999;
+  background-color: red;
 }
 
 .question-container {
